@@ -1,0 +1,17 @@
+.cart {
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  img {
+    width: 26px;
+  }
+
+  span {
+    font-size: 14px;
+    color: #ffffff;
+  }
+}
