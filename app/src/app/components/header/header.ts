@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Search } from '../search/search';
 import { Catalog } from '../catalog/catalog';
+import { MyAccount } from '../my-account/my-account';
+import { ShoppingCart } from '../shopping-cart/shopping-cart';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +11,8 @@ import { Catalog } from '../catalog/catalog';
     RouterLink,
     Search,
     Catalog,
+    MyAccount,
+    ShoppingCart,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss'

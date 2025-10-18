@@ -97,47 +97,11 @@ header {
             justify-content: center;
             margin-top: 6px;
 
-            .account {
-              margin: 0 10px;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              gap: 8px;
-
-              img {
-                width: 26px;
-              }
-
-              span {
-                font-size: 14px;
-                color: #ffffff;
-              }
-            }
-
             .separator {
               margin-top: 3px;
               width: 1px;
               height: 23px;
               background-color: #ffffff;
-            }
-
-            .cart {
-              margin: 0 10px;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              gap: 8px;
-
-              img {
-                width: 26px;
-              }
-
-              span {
-                font-size: 14px;
-                color: #ffffff;
-              }
             }
           }
         }
