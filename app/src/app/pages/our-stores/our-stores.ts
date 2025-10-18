@@ -30,7 +30,7 @@ export class OurStores {
     const hourOpen = this.toHour(open);
     const hourClose = this.toHour(close);
 
-    return ( hourOpen <= hour && hour <= hourClose);
+    return ( hourOpen <= hour && hour < hourClose);
   }
 
   protected toHour(hour: string): number { // ["08:00 a. m."] || [9:00 p. m.]
