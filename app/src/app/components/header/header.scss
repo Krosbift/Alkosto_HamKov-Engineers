@@ -97,91 +97,13 @@ header {
             justify-content: center;
             margin-top: 6px;
 
-            .account {
-              margin: 0 10px;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              gap: 8px;
-
-              img {
-                width: 26px;
-              }
-
-              span {
-                font-size: 14px;
-                color: #ffffff;
-              }
-            }
-
             .separator {
               margin-top: 3px;
               width: 1px;
               height: 23px;
               background-color: #ffffff;
             }
-
-            .cart {
-              margin: 0 10px;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              gap: 8px;
-
-              img {
-                width: 26px;
-              }
-
-              span {
-                font-size: 14px;
-                color: #ffffff;
-              }
-            }
           }
-        }
-      }
-    }
-  }
-
-  .second-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background-color: #06376F;
-    border-bottom: 2px solid #eb5b25;
-
-    .second-center-container {
-      width: 100%;
-      max-width: 1158px;
-      margin: 0 auto;
-
-      ul {
-        width: fit-content;
-        display: flex;
-
-        li {
-          height: 36px;
-          display: flex;
-          align-items: center;
-          list-style: none;
-
-          a {
-            font-size: 14px;
-            font-weight: 500;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 8px 12px;
-          }
-        }
-
-        .special {
-          background-color: #eb5b25;
-          border-top-left-radius: 5px;
-          border-top-right-radius: 5px;
-          padding: 0 4px;
         }
       }
     }
@@ -190,13 +112,4 @@ header {
   .third-container {
     background-color: #ffffff;
   }
-}
-
-main {
-  background: #f1f1f1;
-  min-height: 1536px;
-  background-repeat: no-repeat;
-  position: relative;
-  background-size: cover;
-  padding: 32px 0 1px;
 }
