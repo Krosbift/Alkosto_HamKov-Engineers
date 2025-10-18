@@ -1,4 +1,65 @@
-<form action="">
+<form action="" class="search-form">
   <i><img src="/search.svg"></i>
-  <input type="text" name="" id="" placeholder="          ¿Qué buscas hoy?">
+  <input type="text" name="" id="search-input" placeholder="          ¿Qué buscas hoy?">
+  
+  <!-- Panel azul que aparece SOLO al hacer click -->
+  <div class="suggestions-panel">
+    <!-- Cabecera azul más ancha -->
+    <div class="blue-header">
+      <div class="blue-panel">
+        <!-- BARRA DE BÚSQUEDA DENTRO DEL PANEL AZUL -->
+        <div class="panel-search-bar">
+          <i><img src="/search.svg"></i>
+          <input type="text" placeholder="" class="panel-search-input">
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenido del panel -->
+    <div class="panel-content">
+      <div class="suggestions-section">
+        <h3>Lo más buscado</h3>
+        <div class="search-categories">
+          <div class="category-row">
+            <span>lavadoras</span>
+            <span>celulares</span>
+          </div>
+          <div class="category-row">
+            <span>televisores</span>
+            <span>tablet</span>
+          </div>
+          <div class="category-row">
+            <span>estufas</span>
+            <span>ventiladores</span>
+          </div>
+          <div class="category-row">
+            <span>licuadoras</span>
+            <span>audífonos</span>
+          </div>
+          <div class="category-row">
+            <span>computadores</span>
+            <span>cafeteras</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="suggestions-section">
+        <h3>Productos vistos</h3>
+        <div class="products-list">
+          <div class="product">
+            <span class="name">Parlante CHALLENGER 8C5 Negro</span>
+            <span class="price">$119,030</span>
+          </div>
+          <div class="product">
+            <span class="name">Celular SAMSUNG Galaxy A16 128GB LTE 4G Verde</span>
+            <span class="price">$539,050</span>
+          </div>
+          <div class="product">
+            <span class="name">Celular REDMI Note 14 256GB 4G Azul + Audífonos</span>
+            <span class="price">$949,050</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </form>
