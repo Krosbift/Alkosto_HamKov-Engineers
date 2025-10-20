@@ -1,5 +1,5 @@
 .login-options {
-  --purple: #6750f0;
+  --blue: #004797;
   --orange: #eb5b25;
   --text: #444;
   --muted: #6b6b6b;
@@ -8,6 +8,7 @@
   max-width: 1180px;
   margin: 0 auto;
   padding: 28px 24px 64px;
+  min-height: calc(80vh);
 
   .back-link {
     display: inline-flex;
@@ -104,7 +105,7 @@
           height: 36px;
           display: grid;
           place-items: center;
-          color: var(--purple);
+          color: var(--blue);
 
           svg {
             width: 22px;
