@@ -25,7 +25,7 @@ export class OurStores {
     const today = item.schedule[this.scheduleToday()];
 
     const hola = today.split(": ");
-    const [ open, close ] = hola[1].split(" - ") // ["08:00 a. m."] || [9:00 p. m.]
+    const [ open, close ] = hola[1].split(" - ")
 
     const hourOpen = this.toHour(open);
     const hourClose = this.toHour(close);

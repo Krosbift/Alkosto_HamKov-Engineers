@@ -1,8 +1,79 @@
 <div class="account">
-  <img src="/account.svg">
+  <img src="/account.svg" />
   <span>Mi cuenta</span>
 </div>
 
-<div class="background-menu">
-  
+<div class="triangle"></div>
+<div class="menu">
+  <div class="account-form">
+    <h3>Ingresar o crear cuenta</h3>
+    <span class="span-info"
+      >Accede a tus datos personales, tus pedidos y solicita devoluciones:</span
+    >
+    <form>
+      <div class="form-field">
+        <label for="email">Correo electrónico</label>
+        <div class="input-wrapper">
+          <input type="email" id="email" name="email" />
+          <span class="error-icon">⚠</span>
+        </div>
+        <span class="error-message">El correo no es válido</span>
+      </div>
+      <button class="button-primary" type="submit">Continuar</button>
+    </form>
+  </div>
+  <div class="account-nav">
+    <ul>
+      <li>
+        <a href="#">
+          <i class="icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3" y="7" width="10" height="6" rx="1"></rect>
+                <path d="M13 10h3l3 3v3h-6"></path>
+                <circle cx="7" cy="18" r="2"></circle>
+                <circle cx="17" cy="18" r="2"></circle>
+              </g>
+            </svg>
+          </i>
+          <div>
+            <h5>Sigue tu pedido</h5>
+            <span>Revisa el estado actual de tu pedido.</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M7 3h8l3 3v15H7z"></path>
+                <path d="M15 3v4h4"></path>
+                <path d="M12 10v6"></path>
+                <path d="M10.5 14.5L12 16l1.5-1.5"></path>
+              </g>
+            </svg>
+          </i>
+          <div>
+            <h5>Descarga tu factura</h5>
+            <span>Consulta y descarga tu factura.</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
+
+<div class="background-modal active"></div>
