@@ -19,25 +19,32 @@
 .triangle {
   position: absolute;
   z-index: 200;
-  top: 54px;
+  top: 44px;
   right: 16px;
   width: 0;
   height: 0;
   border-left: 25px solid transparent;
   border-right: 25px solid transparent;
   border-bottom: 10px solid #fff;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
 }
 
 .menu {
   position: absolute;
   z-index: 200;
-  top: 64px;
+  top: 44px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(-20px);
   background-color: #fff;
   width: 312px;
   height: auto;
   border-radius: 3px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
 
   .account-form {
     padding: 32px 0px 24px 0px;
@@ -72,14 +79,14 @@
         margin-bottom: 8px;
         font-weight: 500;
         font-size: 16px;
-        top: 37%;
+        top: 38%;
         left: 35px;
         z-index: 10;
         background-color: transparent;
         padding: 0px 5px;
       }
 
-      label.active {
+      label.error-active {
         font-size: 12px;
         top: 33%;
         left: 35px;
@@ -94,14 +101,20 @@
         input {
           width: 100%;
           padding: 12px 40px 12px 12px;
-          border: 1px solid #e74c3c;
+          border: 1px solid #ccc;
           border-radius: 4px;
           font-size: 14px;
-          color: #999;
+          color: #444;
+          transition: border-color 0.3s ease;
 
           &:focus {
             outline: none;
+            border-color: #eb5b25;
+          }
+
+          &.error-active {
             border-color: #e74c3c;
+            color: #999;
           }
         }
 
@@ -112,6 +125,14 @@
           transform: translateY(-50%);
           color: #e74c3c;
           font-size: 25px;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+
+          &.error-active {
+            opacity: 1;
+            visibility: visible;
+          }
         }
       }
 
@@ -123,6 +144,16 @@
         padding-bottom: 14px;
         position: relative;
         left: 15px;
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+        transition: all 0.3s ease;
+
+        &.error-active {
+          opacity: 1;
+          visibility: visible;
+          max-height: 50px;
+        }
       }
     }
 
@@ -154,6 +185,11 @@
       -ms-user-select: none;
       user-select: none;
       width: 100%;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #d64e1f;
+      }
     }
   }
 
@@ -226,7 +262,6 @@
 }
 
 .background-modal {
-  display: block;
   width: 100vw;
   height: calc(100vh - 112px);
   position: fixed;
@@ -237,10 +272,24 @@
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.15s linear;
+  transition: opacity 0.3s ease;
+}
 
-  &.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
+.triangle.active {
+  top: 54px;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.menu.active {
+  top: 64px;
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.background-modal.active {
+  opacity: 1;
+  pointer-events: auto;
 }
