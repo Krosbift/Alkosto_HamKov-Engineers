@@ -1,4 +1,4 @@
-<div class="account" (click)="this.openOrCloseMenu()">
+<div class="account" (click)="openOrCloseMenu()">
   <img src="/account.svg" />
   <span>Mi cuenta</span>
 </div>
@@ -10,14 +10,29 @@
     <span class="span-info"
       >Accede a tus datos personales, tus pedidos y solicita devoluciones:</span
     >
-    <form>
+    <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
       <div class="form-field">
-        <label for="email" [class.error-active]="formError">Correo electrónico</label>
-        <div class="input-wrapper" [class.error-active]="formError">
-          <input type="email" id="email" name="email" [class.error-active]="formError" />
-          <span class="error-icon" [class.error-active]="formError">⚠</span>
+        <label
+          for="email"
+          [class.error-active]="formError()"
+          [class.touch-active]="emailTouched() && !formError()"
+          >Correo electrónico</label
+        >
+        <div class="input-wrapper" [class.error-active]="formError()">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            formControlName="email"
+            [class.error-active]="formError()"
+            (focus)="onEmailFocus()"
+            (blur)="onEmailBlur()"
+          />
+          <span class="error-icon" [class.error-active]="formError()">⚠</span>
         </div>
-        <span class="error-message" [class.error-active]="formError">El correo no es válido</span>
+        <span class="error-message" [class.error-active]="formError()"
+          >El correo no es válido
+        </span>
       </div>
       <button class="button-primary" type="submit">Continuar</button>
     </form>
@@ -76,4 +91,4 @@
   </div>
 </div>
 
-<div class="background-modal" [class.active]="stateMenu"></div>
+<div class="background-modal" [class.active]="stateMenu" (click)="closeMenu()"></div>
