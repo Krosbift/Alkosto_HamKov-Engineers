@@ -25,7 +25,7 @@
 
     <div class="right">
       <div class="form-card">
-        <form>
+        <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
           <div class="form-field">
             <label for="email">Correo electrónico</label>
             <div class="input-wrapper">
@@ -33,9 +33,10 @@
                 type="email" 
                 id="email" 
                 name="email" 
-                [value]="email"
+                formControlName="email"
+                (input)="onEmailInput()"
               />
-              <button type="button" class="clear-btn" aria-label="Limpiar">
+              <button type="button" class="clear-btn" aria-label="Limpiar" (click)="clearEmail()">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <g
                     fill="none"
