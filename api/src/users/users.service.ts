@@ -6,7 +6,7 @@ export class UsersService {
   constructor(private readonly repository: UsersRepository) {}
 
   public async validateUserEmail(email: string) {
-    const user = this.repository.findUser({ email })
+    const user = await this.repository.findUser({ email });
     return user !== null;
   }
 }
