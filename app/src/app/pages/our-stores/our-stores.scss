@@ -5,23 +5,6 @@
   justify-content: center;
 }
 
-@media (min-width: 1200px) {
-  .container {
-    width: 65%;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    width: 70;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    width: 80;
-  }
-}
 
 .container {
   padding-right: 15px;
@@ -32,6 +15,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
+  width: 70%;
+
 }
 
 .card {
@@ -41,10 +26,12 @@
   margin: 1em 0;
   border-radius: 4px;
   width: 30%;
+  height: 212px;
 }
 
 .card-header {
   padding: 16px 18px;
+  color: #444444;
   background: #f5f5f5;
   border-radius: 4px 4px 0 0;
   display: flex;
@@ -60,10 +47,12 @@
     margin-top: 0;
     margin-bottom: 0;
     justify-content: space-between;
-    display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
     font-size: 18px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   span.badge.bg-primary {
@@ -89,8 +78,11 @@
 
 .card-body {
   padding: 16px 15px 0 15px;
+  color: #444444;
+  background-color: #fff;
 
   .horario-tienda {
+    font-size: 14px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -109,9 +101,9 @@
       display: flex;
       align-items: center;
       margin: 0;
-      font-family: Arial, sans-serif
 
-      i {
+      font-family: Arial,
+      sans-serif i {
         padding: 0 8px;
         font-size: 16px;
         margin: 0;
@@ -166,3 +158,36 @@
     }
   }
 }
+
+.icono img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  border-radius: 4px;
+}
+
+.arrow img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  border-radius: 4px;
+}
+
+
+/*@media (min-width: 1200px) {
+  .container {
+    width: 65%;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 70;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 80;
+  }
+}*/
