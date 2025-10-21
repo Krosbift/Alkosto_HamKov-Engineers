@@ -4,11 +4,12 @@
 		<article class="card">
 			<div class="card-header">
 				<h2 class="card-subtitle">{{ item.name }}</h2>
-				<span class="badge" [class]="{'bg-primary': this.openOrClose(item), 'bg-secundary': !this.openOrClose(item), }">
+				<span class="badge"
+					[class]="{'bg-primary': this.openOrClose(item), 'bg-secundary': !this.openOrClose(item), }">
 					@if (this.openOrClose(item)) {
-						Abierto
+					Abierto
 					} @else {
-						Cerrado
+					Cerrado
 					}
 				</span>
 			</div>
@@ -16,7 +17,15 @@
 				<div class="cont-info-card">
 					<p class="horario-tienda">{{ item.address }}</p>
 					<div data-toggle="collapse" data-target="#horariosAcordion5" class="accordion-button collapsed">
-						<p class="horario abierto"><i class="alk-icon-clock"></i>{{  item.schedule[this.scheduleToday()] }}</p>
+						<p class="horario abierto">
+						<span class="arrow">
+							<img src="/arrow_our-stores.svg" alt="arrow">
+						</span>
+						<span class="icono">
+							<img src="/clock_our-stores.svg" alt="icono">
+						</span>
+						<i class="clock_our-stores">
+						</i>{{item.schedule[this.scheduleToday()] }}</p>
 					</div>
 					<!-- <div class="collapse" id="horariosAcordion5">
 						<ul class="list-horario">

@@ -1,0 +1,60 @@
+<section class="register">
+  <a class="back-link" href="#">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <g
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M15 6l-6 6l6 6"></path>
+      </g>
+    </svg>
+    Volver
+  </a>
+
+  <div class="grid">
+    <div class="left">
+      <h1>Crea tu cuenta completando los datos</h1>
+
+      <p class="helper">
+        Correo electrónico ingresado:<br />
+        <span class="email">abcdefg23123@gmail.com</span>
+        <a class="modify" href="#">Modificar</a>
+      </p>
+    </div>
+
+    <div class="right">
+      <div class="form-card">
+        <form>
+          <div class="form-field">
+            <input type="text" id="firstName" name="firstName" placeholder="Nombres" />
+          </div>
+
+          <div class="form-field">
+            <input type="text" id="lastName" name="lastName" placeholder="Apellidos" />
+          </div>
+
+          <div class="form-field phone-field">
+            <div class="phone-prefix">
+              <img src="co.svg" alt="Colombia" class="flag-icon" />
+              <span>+57</span>
+            </div>
+            <input type="tel" id="phone" name="phone" placeholder="Teléfono celular" />
+          </div>
+
+          <div class="form-field checkbox-field">
+            <input type="checkbox" id="terms" name="terms" />
+            <label for="terms">
+              Autorizo el uso de mis datos en los siguientes
+              <a href="#" class="terms-link">términos y condiciones</a>
+            </label>
+          </div>
+
+          <button class="button-primary" type="submit">Continuar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
