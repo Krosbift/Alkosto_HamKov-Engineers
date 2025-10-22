@@ -35,7 +35,6 @@ export class EmailVerification {
 
   protected onEmailInput(): void {
     const value = this.emailForm.get('email')?.value ?? '';
-    console.log('Email cambiado:', value);
   }
 
   protected clearEmail(): void {

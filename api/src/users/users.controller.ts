@@ -16,4 +16,9 @@ export class UsersController {
   public async registerUser(@Body() body: RegisterUserDto) {
     return this.service.register(body);
   }
+
+  @Get()
+  public x(@Query() query: ValidateUserEmailDto) {
+    return '<h1>Hola Mundooooooooooooooooooooooooooooo<h1/>';
+  }
 }
