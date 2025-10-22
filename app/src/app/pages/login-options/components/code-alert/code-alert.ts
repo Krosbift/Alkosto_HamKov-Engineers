@@ -55,7 +55,6 @@ export class CodeAlert {
     const value = input.value;
 
     if (value.length === 1 && /^[0-9]$/.test(value)) {
-      // Mover al siguiente input
       if (currentIndex < 6) {
         const nextInput = document.querySelector(
           `input[formControlName="digit${currentIndex + 1}"]`
@@ -71,7 +70,6 @@ export class CodeAlert {
     const input = event.target as HTMLInputElement;
 
     if (event.key === 'Backspace' && !input.value && currentIndex > 1) {
-      // Mover al input anterior
       const prevInput = document.querySelector(
         `input[formControlName="digit${currentIndex - 1}"]`
       ) as HTMLInputElement;
@@ -84,7 +82,6 @@ export class CodeAlert {
   protected onSubmit(): void {
     if (this.codeForm.valid) {
       const code = Object.values(this.codeForm.value).join('');
-      console.log('Código ingresado:', code);
       // Aquí llamarías al servicio de verificación
       this.close();
     } else {
@@ -93,7 +90,6 @@ export class CodeAlert {
   }
 
   protected resendCode(): void {
-    console.log('Reenviar código');
     this.startCountdown();
     // Aquí llamarías al servicio para reenviar el código
   }
@@ -103,7 +99,7 @@ export class CodeAlert {
   }
 
   private startCountdown(): void {
-    this.countdown.set(38);
+    this.countdown.set(60);
     this.stopCountdown();
 
     this.countdownInterval = setInterval(() => {

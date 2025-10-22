@@ -33,6 +33,7 @@ export class LoginOptions {
   }
 
   protected openVerification(method: string): void {
+    // aqui craer el código de verificación
     this.codeAlert.open(method);
   }
 }
