@@ -5,12 +5,24 @@ import { UsersRepository } from './users.repository';
 export class UsersTypeorm implements UsersRepository {
   constructor(private readonly dataSource: DataSource) {}
 
-  public async findUser(where: FindOptionsWhere<UsersEntity>): Promise<UsersEntity | null> {
+  public async findUser(
+    where: FindOptionsWhere<UsersEntity>,
+  ): Promise<UsersEntity | null> {
     try {
       return await this.performTransaction(async (queryRunner: QueryRunner) => {
         return await queryRunner.manager.findOne(UsersEntity, {
           where,
         });
+      });
+    } catch (error) {
+      throw new Error();
+    }
+  }
+
+  async createUser(entity: Omit<UsersEntity, 'id' | 'activo'>): Promise<UsersEntity> {
+    try {
+      return await this.performTransaction(async (queryRunner: QueryRunner) => {
+        return await queryRunner.manager.save(UsersEntity, entity);
       });
     } catch (error) {
       throw new Error();

@@ -40,9 +40,9 @@
   left: 50%;
   transform: translateX(-50%) translateY(-20px);
   background-color: #fff;
-  width: 312px;
+  min-width: 380px;
   height: auto;
-  border-radius: 3px;
+  border-radius: 5px;
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s ease;
@@ -50,6 +50,7 @@
   .account-form {
     padding: 32px 0px 24px 0px;
     margin: 0 24px;
+
     h3 {
       color: #444;
       font-size: 24px;
@@ -80,7 +81,7 @@
         margin-bottom: 8px;
         font-weight: 500;
         font-size: 16px;
-        top: 38%;
+        top: 36%;
         left: 35px;
         z-index: 10;
         background-color: transparent;
@@ -89,7 +90,7 @@
 
       label.error-active {
         font-size: 12px;
-        top: 33%;
+        top: 30%;
         left: 35px;
         background-color: #fff;
         color: #444;
@@ -97,7 +98,7 @@
 
       label.touch-active {
         font-size: 12px;
-        top: 34%;
+        top: 31%;
         left: 35px;
         background-color: #fff;
         color: #444;
@@ -198,6 +199,125 @@
 
       &:hover {
         background-color: #d64e1f;
+      }
+    }
+  }
+
+  .account-logged {
+    width: 100%;
+
+    .user-header {
+      padding: 32px 24px 32px 24px;
+      border-bottom: 1px dashed #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: #444;
+      }
+
+      .logout-link {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #eb5b25;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .user-menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        &:last-child {
+          border-bottom: none;
+        }
+
+        a {
+          display: grid;
+          grid-template-columns: 32px 1fr;
+          gap: 12px;
+          padding: 8px 24px;
+          text-decoration: none;
+          color: inherit;
+          transition: background-color 0.2s ease;
+
+          &:hover {
+            background-color: #f9f9f9;
+          }
+
+          i.icon {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+
+            svg {
+              width: 18px;
+              height: 18px;
+              display: block;
+            }
+
+            &.user-icon {
+              color: #eb5b25;
+            }
+
+            &.profile-icon {
+              color: #eb5b25;
+            }
+
+            &.orders-icon {
+              color: #eb5b25;
+            }
+
+            &.payment-icon {
+              color: #eb5b25;
+            }
+
+            &.address-icon {
+              color: #eb5b25;
+            }
+
+            &.favorites-icon {
+              color: #eb5b25;
+            }
+          }
+
+          h5 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+            color: #444;
+            line-height: 1.3;
+          }
+
+          span {
+            display: block;
+            margin-top: 2px;
+            font-size: 12px;
+            color: #8a8a8a;
+            line-height: 1.3;
+          }
+        }
       }
     }
   }

@@ -15,6 +15,9 @@ export class MyAccount {
   protected emailForm: FormGroup;
   protected stateMenu: boolean = false;
   protected emailTouched = signal<boolean>(false);
+  protected isLoggedIn = signal<boolean>(false);
+  protected userName = signal<string>('');
+  protected userEmail = signal<string>('');
 
   constructor(
     private readonly fb: FormBuilder,
@@ -33,6 +36,22 @@ export class MyAccount {
         this.emailTouched.set(true);
       }
     });
+
+    // Verificar si el usuario está logueado
+    this.checkUserSession();
+  }
+
+  private checkUserSession(): void {
+    const userName = localStorage.getItem('userName');
+    const userEmail = localStorage.getItem('userEmail');
+
+    if (userName && userEmail) {
+      this.isLoggedIn.set(true);
+      this.userName.set(userName);
+      this.userEmail.set(userEmail);
+    } else {
+      this.isLoggedIn.set(false);
+    }
   }
 
   protected formError(): boolean {
@@ -89,5 +108,15 @@ export class MyAccount {
 
   protected closeMenu(): void {
     this.stateMenu = false;
+  }
+
+  protected logout(): void {
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userLastName');
+    localStorage.removeItem('userEmail');
+    this.isLoggedIn.set(false);
+    this.userName.set('');
+    this.userEmail.set('');
+    this.closeMenu();
   }
 }
