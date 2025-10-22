@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { BASEURL } from '../core/http/url';
+import { UserBaseInfo } from '../types/register-user';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +11,9 @@ import { BASEURL } from '../core/http/url';
 export class MyAccount {
   constructor(private readonly http: HttpClient) {}
 
-  validateEmail(email: string): Observable<boolean> {
+  findUserByEmail(email: string): Observable<UserBaseInfo> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.get<boolean>(`${BASEURL}/users/validate-user-email?email=${email}`, {
+    return this.http.get<UserBaseInfo>(`${BASEURL}/users/validate-user-email?email=${email}`, {
       headers,
     });
   }

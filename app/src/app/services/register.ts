@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RegisterUser } from '../types/register-user';
+import { UserBaseInfo } from '../types/register-user';
 
 import { BASEURL } from '../core/http/url';
 
@@ -10,9 +10,9 @@ import { BASEURL } from '../core/http/url';
 export class Register {
   constructor(private readonly http: HttpClient) {}
 
-  registerUser(user: RegisterUser) {
+  UserBaseInfo(user: UserBaseInfo) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<RegisterUser>(`${BASEURL}/users/register`, user, {
+    return this.http.post<UserBaseInfo>(`${BASEURL}/users/register`, user, {
       headers,
     });
   }

@@ -37,7 +37,6 @@ export class MyAccount {
       }
     });
 
-    // Verificar si el usuario está logueado
     this.checkUserSession();
   }
 
@@ -83,12 +82,18 @@ export class MyAccount {
     if (this.emailForm.valid) {
       const email = this.emailForm.get('email')?.value;
 
-      this.myAccountService.validateEmail(email).subscribe({
-        next: (requestResult) => {
-          if (requestResult) {
-            this.router.navigate(['/login-options'], {
+      this.myAccountService.findUserByEmail(email).subscribe({
+        next: (res) => {
+          if (res) {
+            localStorage.setItem('userName', res.nombre);
+            localStorage.setItem('userLastName', res.apellido);
+            localStorage.setItem('userEmail', res.email);
+            localStorage.setItem('userPhoneNumber', res.telefono);
+
+            this.router.navigate(['/login/options'], {
               state: { email: email, userExists: true },
             });
+
             return this.closeMenu();
           }
 
@@ -114,9 +119,11 @@ export class MyAccount {
     localStorage.removeItem('userName');
     localStorage.removeItem('userLastName');
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('userPhoneNumber');
     this.isLoggedIn.set(false);
     this.userName.set('');
     this.userEmail.set('');
     this.closeMenu();
+    this.router.navigate(['/']);
   }
 }

@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Register as MyRegisterService } from '../../services/register';
-import { RegisterUser } from '../../types/register-user';
-
+import { UserBaseInfo } from '../../types/register-user';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +19,7 @@ export class Register {
   constructor(
     private readonly router: Router,
     private readonly fb: FormBuilder,
-    private readonly myRegisterService: MyRegisterService,
+    private readonly myRegisterService: MyRegisterService
   ) {
     const navigation = this.router.currentNavigation();
     if (navigation?.extras?.state) {
@@ -30,13 +29,7 @@ export class Register {
     this.registerForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
-      phone: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^[0-9]{10}$/),
-        ],
-      ],
+      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
       terms: [false, [Validators.requiredTrue]],
     });
   }
@@ -61,23 +54,24 @@ export class Register {
     }
 
     const value = this.registerForm.value;
-    const user: RegisterUser = {
+    const user: UserBaseInfo = {
       nombre: value.firstName,
       apellido: value.lastName,
       email: this.email,
       telefono: value.phone,
-    }
-    
-    this.myRegisterService.registerUser(user).subscribe({
-      next: (res: RegisterUser) => {
+    };
+
+    this.myRegisterService.UserBaseInfo(user).subscribe({
+      next: (res: UserBaseInfo) => {
         localStorage.setItem('userName', res.nombre);
         localStorage.setItem('userLastName', res.apellido);
         localStorage.setItem('userEmail', res.email);
+        localStorage.setItem('userPhoneNumber', res.telefono);
         this.router.navigate(['/']);
       },
       error: (err) => {
         console.error(err);
-      }
+      },
     });
   }
 }

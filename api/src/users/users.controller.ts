@@ -8,16 +8,12 @@ export class UsersController {
   constructor(private readonly service: UsersService) {}
 
   @Get('validate-user-email')
-  public async validateUserEmail(
-    @Query() query: ValidateUserEmailDto
-  ) {
-    return this.service.validateUserEmail(query.email);
+  public async validateUserEmail(@Query() query: ValidateUserEmailDto) {
+    return this.service.findOneUser({ email: query.email });
   }
 
   @Post('register')
-  public async registerUser(
-    @Body() body: RegisterUserDto,
-  ) {
+  public async registerUser(@Body() body: RegisterUserDto) {
     return this.service.register(body);
   }
 }

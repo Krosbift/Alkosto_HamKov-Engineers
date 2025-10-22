@@ -7,6 +7,8 @@ export class ZodEnvParser implements IEnvParser {
     host: z.string(),
     port: z.coerce.number(),
     postgreURL: z.string(),
+    emailUser: z.string(),
+    emailPassword: z.string(),
   });
 
   public async parse(env: NodeJS.ProcessEnv): Promise<ProcessEnvType> {
@@ -14,6 +16,8 @@ export class ZodEnvParser implements IEnvParser {
       host: env.HOST,
       port: Number(env.PORT),
       postgreURL: env.DATABASE_CONNECTION_STRING,
+      emailUser: env.EMAIL_USER,
+      emailPassword: env.EMAIL_PASSWORD,
     });
   }
 }
