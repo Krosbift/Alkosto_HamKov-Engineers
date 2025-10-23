@@ -1,236 +1,114 @@
 <div class="second-container">
   <div class="second-center-container">
+    <!-- Overlay shown when menu is open -->
+    <div
+      class="catalog-overlay"
+      [class.show]="menuOpen"
+      (click)="closeMenu()"
+      [attr.aria-hidden]="!menuOpen"
+    ></div>
+
     <ul class="menu">
-    <li class="dropdown">
-  <a href="#tecnologia">Tecnología</a>
-  <div class="dropdown-menu">
-  <!-- Panel lateral -->
-  <div class="menu-left">
-    <ul>
-      <li class="active">Celulares</li>
-      <li>Computadores</li>
-      <li>Televisores</li>
-      <li>Accesorios de tecnología</li>
-      <li>Audio</li>
-      <li>Consolas y videojuegos</li>
-      <li>Cámaras</li>
-      <li>Casa inteligente</li>
-      <li>Impresoras</li>
-      <li>Monitores</li>
-      <li>Proyectores</li>
-      <li>Smartwatch</li>
-      <li>Tablets</li>
-    </ul>
-  </div>
+      <!-- Tecnología dropdown (opens on click) -->
+      <li id="tech-dropdown" class="dropdown" [class.active]="menuOpen" [class.show]="menuOpen">
+        <a
+          href="#"
+          (click)="toggleMenu($event)"
+          aria-controls="tech-panel"
+          [attr.aria-expanded]="menuOpen"
+          >Tecnología</a
+        >
 
-  <!-- Panel derecho (contenido principal) -->
-  <div class="menu-right">
-    <div class="menu-right-header">
-      <h3>Celulares</h3>
-      <a class="ver-todo" href="#">Ver todo →</a>
-      <button class="close-btn" aria-label="Cerrar submenú">×</button>
-    </div>
-    <p class="subtitle">Marca</p>
-    <div class="brands">
-      <div class="brand-item">
-        <img src="img/apple.png" alt="Apple">
-        <span>Apple</span>
-      </div>
-      <div class="brand-item">
-        <img src="img/samsung.png" alt="Samsung">
-        <span>Samsung</span>
-      </div>
-      <div class="brand-item">
-        <img src="img/motorola.png" alt="Motorola">
-        <span>Motorola</span>
-      </div>
-      <div class="brand-item">
-        <img src="img/honor.png" alt="Honor">
-        <span>Honor</span>
-      </div>
-      <div class="brand-item">
-        <img src="img/xiaomi.png" alt="Xiaomi">
-        <span>Xiaomi</span>
-      </div>
-      <div class="brand-item">
-        <img src="img/huawei.png" alt="Huawei">
-        <span>Huawei</span>
-      </div>
-      <div class="brand-item">
-        <img src="img/oppo.png" alt="Oppo">
-        <span>Oppo</span>
-      </div>
-      <div class="brand-item">
-        <img src="img/vivo.png" alt="Vivo">
-        <span>Vivo</span>
-      </div>
-      <div class="brand-item">
-        <img src="img/tecno.png" alt="Tecno">
-        <span>Tecno</span>
-      </div>
-      <div class="brand-item">
-        <img src="img/realme.png" alt="realme">
-        <span>realme</span>
-      </div>
-      <div class="brand-item">
-        <img src="img/tcl.png" alt="TCL">
-        <span>TCL</span>
-      </div>
-      <div class="brand-item">
-        <img src="img/kalley.png" alt="Kalley">
-        <span>Kalley</span>
-      </div>
-      <div class="brand-item">
-        <img src="img/zte.png" alt="ZTE">
-        <span>ZTE</span>
-      </div>
-      <div class="brand-item">
-        <img src="img/infinix.png" alt="Infinix">
-        <span>Infinix</span>
-      </div>
-    </div>
-    <div class="related">
-      <p>Productos relacionados: <a href="#">Accesorios para celulares</a> <a href="#">Seguro gratis para celulares</a> <a href="#">Plan Retoma</a></p>
-    </div>
-  </div>
-  </div>
-      </li>
+        <div
+          id="tech-panel"
+          class="dropdown-menu"
+          role="menu"
+          aria-labelledby="tech-dropdown"
+          [class.show]="menuOpen"
+          [attr.aria-hidden]="!menuOpen"
+        >
+          <div class="menu-left">
+            <ul>
+              <li class="active">Celulares</li>
+              <li>Computadores</li>
+              <li>Televisores</li>
+              <li>Accesorios de tecnología</li>
+              <li>Audio</li>
+              <li>Consolas y videojuegos</li>
+              <li>Cámaras</li>
+              <li>Casa inteligente</li>
+              <li>Impresoras</li>
+              <li>Monitores</li>
+              <li>Proyectores</li>
+              <li>Smartwatch</li>
+              <li>Tablets</li>
+            </ul>
+          </div>
 
-      <li class="dropdown">
-        <a href="#electrodomesticos">Electrodomésticos</a>
-        <ul class="dropdown-menu">
-          <li><strong>Marcas</strong></li>
-          <li><a href="#">LG</a></li>
-          <li><a href="#">Whirlpool</a></li>
-          <li><a href="#">Mabe</a></li>
-          <li class="divider"></li>
-          <li><strong>Productos</strong></li>
-          <li><a href="#">Lavadoras</a></li>
-          <li><a href="#">Neveras</a></li>
-          <li><a href="#">Microondas</a></li>
-        </ul>
-      </li>
+          <div class="menu-right">
+            <div class="menu-right-header">
+              <h3>Celulares</h3>
+              <a class="ver-todo" href="#">Ver todo →</a>
+              <button class="close-btn" aria-label="Cerrar submenú" (click)="closeMenu()">×</button>
+            </div>
 
-      <li class="dropdown">
-        <a href="#llantas-y-vehiculos">Llantas y vehículos</a>
-        <ul class="dropdown-menu">
-          <li><strong>Marcas</strong></li>
-          <li><a href="#">Michelin</a></li>
-          <li><a href="#">Bridgestone</a></li>
-          <li><a href="#">Goodyear</a></li>
-          <li class="divider"></li>
-          <li><strong>Motos</strong></li>
-          <li><a href="#">De Calle</a></li>
-          <li><a href="#">Automáticas</a></li>
-          <li><a href="#">Enduro</a></li>
-          <li><a href="#">Semiautomáticas</a></li>
-          <li><a href="#">Carguero</a></li>
-          <li><a href="#">Eléctricas</a></li>
-        </ul>
-      </li>
-      
-      <li class="dropdown">
-        <a href="#muebles-y-colchones">Muebles y colchones</a>
-        <ul class="dropdown-menu">
-          <li><strong>Muebles</strong></li>
-          <li><a href="#">Armarios</a></li>
-          <li><a href="#">Bibliotecas</a></li>
-          <li><a href="#">Centros de entretenimiento</a></li>
-          <li><a href="#">Cajoneras y cómodas</a></li>
-          <li><a href="#">Escritorios</a></li>
-          <li><a href="#">Mesas y comedores</a></li>
-          <li><a href="#">Muebles de cocina</a></li>
-          <li><a href="#">Sillas</a></li>
-          <li><a href="#">Sofás</a></li>
-          <li class="divider"></li>
-          <li><strong>Colchones y base camas</strong></li>
-          <li><a href="#">Sencillo</a></li>
-          <li><a href="#">Semi doble</a></li>
-          <li><a href="#">Doble</a></li>
-          <li><a href="#">Queen</a></li>
-          <li><a href="#">King</a></li>
-          <li><a href="#">Camas y base camas</a></li>
-          <li><a href="#">Colchón con base cama</a></li>
-        </ul>
-      </li>
+            <p class="subtitle">Marca</p>
+            <div class="brands">
+              <div class="brand-item">
+                <img src="img/apple.png" alt="Apple" /><span>Apple</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/samsung.png" alt="Samsung" /><span>Samsung</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/motorola.png" alt="Motorola" /><span>Motorola</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/honor.png" alt="Honor" /><span>Honor</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/xiaomi.png" alt="Xiaomi" /><span>Xiaomi</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/huawei.png" alt="Huawei" /><span>Huawei</span>
+              </div>
+              <div class="brand-item"><img src="img/oppo.png" alt="Oppo" /><span>Oppo</span></div>
+              <div class="brand-item"><img src="img/vivo.png" alt="Vivo" /><span>Vivo</span></div>
+              <div class="brand-item">
+                <img src="img/tecno.png" alt="Tecno" /><span>Tecno</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/realme.png" alt="realme" /><span>realme</span>
+              </div>
+              <div class="brand-item"><img src="img/tcl.png" alt="TCL" /><span>TCL</span></div>
+              <div class="brand-item">
+                <img src="img/kalley.png" alt="Kalley" /><span>Kalley</span>
+              </div>
+              <div class="brand-item"><img src="img/zte.png" alt="ZTE" /><span>ZTE</span></div>
+              <div class="brand-item">
+                <img src="img/infinix.png" alt="Infinix" /><span>Infinix</span>
+              </div>
+            </div>
 
-      <li class="dropdown">
-        <a href="#hogar">Hogar</a>
-        <ul class="dropdown-menu">
-          <li><strong>Habitación</strong></li>
-          <li class="divider"></li>
-          <li><strong>Baño</strong></li>
-          <li class="divider"></li>
-          <li><strong>Articulos de cocina</strong></li>
-          <li class="divider"></li>
-          <li><strong>Decoración</strong></li>
-          <li class="divider"></li>
-          <li><strong>Mesa y complementos</strong></li>
-          <li class="divider"></li>
-          <li><strong>Exterior</strong></li>
-          <li class="divider"></li>
-          <li><strong>Organización y aseo</strong></li>
-        </ul>
+            <div class="related">
+              <p>
+                Productos relacionados: <a href="#">Accesorios para celulares</a>
+                <a href="#">Seguro gratis para celulares</a> <a href="#">Plan Retoma</a>
+              </p>
+            </div>
+          </div>
+        </div>
       </li>
-
-      <li class="dropdown">
-        <a href="#juguetes">Juguetes</a>
-        <ul class="dropdown-menu">
-          <li><strong>Juegos de mesa</strong></li>
-          <li class="divider"></li>
-          <li><strong>Juegos para exterior</strong></li>
-          <li class="divider"></li>
-          <li><strong>Juguetes para bebés</strong></li>
-          <li class="divider"></li>
-          <li><strong>Muñecas y accesorios</strong></li>
-          <li class="divider"></li>
-          <li><strong>Pistas y carros</strong></li>
-        </ul>
-      </li>
-
-      <li class="dropdown">
-        <a href="#deportes">Deportes</a>
-        <ul class="dropdown-menu">
-          <li><strong>Bicicletas</strong></li>
-          <li><a href="#">Bicicletas adulto</a></li>
-          <li><a href="#">Bicicletas todoterreno</a></li>
-          <li><a href="#">Bicicletas de ruta</a></li>
-          <li><a href="#">Bicicletas eléctricas</a></li>
-          <li><a href="#">Cascos para bicicletas</a></li>
-          <li class="divider"></li>
-          <li><strong>Ejercicio y fitness</strong></li>
-          <li><a href="#">Bicicletas estáticas</a></li>
-          <li><a href="#">Caminadoras y trotadoras</a></li>
-          <li><a href="#">Elípticas</a></li>
-          <li><a href="#">Multi gimnasios</a></li>
-          <li><a href="#">Bancos y plataformas</a></li>
-          <li class="divider"></li>
-          <li><strong>Implementos deportivos</strong></li>
-          <li><a href="#">Musculación</a></li>
-          <li><a href="#">Básculas digitales</a></li>
-          <li><a href="#">Accesorios de movilidad</a></li>
-          <li><a href="#">Audífonos deportivos</a></li>
-        </ul>
-      </li>
-
-      <li class="dropdown">
-        <a href="#pines">Pines</a>
-        <ul class="dropdown-menu">
-          <li><strong>DirecTV GO</strong></li>
-          <li class="divider"></li>
-          <li><strong>Licencias de software</strong></li>
-          <li class="divider"></li>
-          <li><strong>Membresías</strong></li>
-          <li class="divider"></li>
-          <li><strong>Netflix</strong></li>
-          <li class="divider"></li>
-          <li><strong>Paramount</strong></li>
-          <li class="divider"></li>
-        </ul>
-      </li>
-
-      <li><a href="#gildan">Ropa Gildan</a></li>
-      <li><a href="#mercado">Mercado</a></li>
+      <li><a>Tecnología</a></li>
+      <li><a>Electrodomésticos</a></li>
+      <li><a>Llantas y vehículos</a></li>
+      <li><a>Muebles y colchones</a></li>
+      <li><a>Hogar</a></li>
+      <li><a>Juguetes</a></li>
+      <li><a>Deportes</a></li>
+      <li><a>Pines</a></li>
+      <li><a>Ropa Gildan</a></li>
+      <li><a>Mercado</a></li>
     </ul>
   </div>
 </div>
