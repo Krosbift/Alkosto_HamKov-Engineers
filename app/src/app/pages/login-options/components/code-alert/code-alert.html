@@ -8,7 +8,7 @@
 
   <div class="modal-body">
     <p class="instruction">
-      Escribe el código recibido en tu {{ messageVerification() }} <b>+57{{  userAuthMethodAddress() }}</b>
+      Escribe el código recibido en tu {{ messageVerification() }} <b>{{  userAuthMethodAddress() }}</b>
     </p>
 
     <form [formGroup]="codeForm" (ngSubmit)="onSubmit()">

@@ -34,10 +34,10 @@ export class CodeAlert {
     this.userAuthMethodAddress.set(
       method === 'email'
         ? localStorage.getItem('userEmail') || ''
-        : (localStorage.getItem('userPhoneNumber') || '')
+        : `+57${(localStorage.getItem('userPhoneNumber') || '')
             .split('')
             .map((char, idx) => (idx === 3 || idx === 4 || idx === 5 ? '*' : char))
-            .join('')
+            .join('')}`
     );
 
     this.isOpen.set(true);

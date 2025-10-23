@@ -90,6 +90,12 @@ protected toHour(time: string): number {
     this.activeIndex = this.activeIndex === index ? null : index;
   }
 
+  // Build a Google Maps directions URL to a given address (optionally including the store name for better results)
+  protected mapUrlFromAddress(address: string, name?: string): string {
+    const query = name ? `${name} ${address}` : address;
+    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
+  }
+
   protected readonly stores: Store[] = [
     {
       name: "Alkosto Avenida 68",

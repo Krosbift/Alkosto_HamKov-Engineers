@@ -31,11 +31,13 @@ export class SendOtpEmail {
     this.ttlMinutes = gmail.ttlMinutes ?? 10;
   }
 
-  async execute(email: string): Promise<{ code: string; expiresAt: Date }> {
+  async execute(
+    email: string,
+    code: string,
+  ): Promise<{ code: string; expiresAt: Date }> {
     this.ensureValidEmail(email);
 
-    const code = this.generate6DigitCode();
-    const expiresAt = new Date(Date.now() + this.ttlMinutes * 60_000);
+    const expiresAt = new Date(Date.now() + this.ttlMinutes * 180_000);
 
     const subject = `${this.appName} - Tu código es ${code}`;
     const text = this.renderText(code);
@@ -56,11 +58,6 @@ export class SendOtpEmail {
       this.logger.error(`Error enviando correo a ${email}: ${error.message}`);
       throw new Error('No se pudo enviar el correo de verificación');
     }
-  }
-
-  private generate6DigitCode(): string {
-    const n = Math.floor(Math.random() * 1_000_000);
-    return n.toString().padStart(6, '0');
   }
 
   private renderText(code: string): string {

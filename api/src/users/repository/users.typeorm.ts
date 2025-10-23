@@ -19,7 +19,7 @@ export class UsersTypeorm implements UsersRepository {
     }
   }
 
-  async createUser(entity: Omit<UsersEntity, 'id' | 'activo'>): Promise<UsersEntity> {
+  async createUser(entity: UsersEntity): Promise<UsersEntity> {
     try {
       return await this.performTransaction(async (queryRunner: QueryRunner) => {
         return await queryRunner.manager.save(UsersEntity, entity);

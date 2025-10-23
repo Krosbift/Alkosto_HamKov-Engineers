@@ -1,6 +1,7 @@
 import { DataSource, FindOptionsWhere, QueryRunner } from 'typeorm';
 import { AuthOptEntity } from '../entities/auth-opt.entity';
 import { AuthRepository } from './auth.repository';
+import { UsersEntity } from '../entities/users.entity';
 
 export class AuthTypeorm implements AuthRepository {
   constructor(private readonly dataSource: DataSource) {}
@@ -23,6 +24,20 @@ export class AuthTypeorm implements AuthRepository {
     try {
       return await this.performTransaction(async (queryRunner: QueryRunner) => {
         return await queryRunner.manager.save(AuthOptEntity, entity);
+      });
+    } catch (error) {
+      throw new Error();
+    }
+  }
+
+  public async findUser(
+    where: FindOptionsWhere<UsersEntity>,
+  ): Promise<UsersEntity | null> {
+    try {
+      return await this.performTransaction(async (queryRunner: QueryRunner) => {
+        return await queryRunner.manager.findOne(UsersEntity, {
+          where,
+        });
       });
     } catch (error) {
       throw new Error();

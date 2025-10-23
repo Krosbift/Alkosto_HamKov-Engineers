@@ -18,5 +18,6 @@ import { DataSource } from 'typeorm';
       inject: [DataSource],
     },
   ],
+  exports: [UsersRepository],
 })
 export class UsersModule {}
