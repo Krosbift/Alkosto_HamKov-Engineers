@@ -1,4 +1,33 @@
-<form action="" class="search-form">
+<form action="" class="search-form" [class.open]="isOpen">
   <i><img src="/search.svg" /></i>
-  <input type="text" name="" id="search-input" placeholder="          ¿Qué buscas hoy?" />
+  <input #searchInput type="text" name="query" id="search-input" placeholder="¿Qué buscas hoy?" (focus)="onFocus()" />
+
+  <!-- Overlay completo que contiene el recuadro azul y el panel blanco divididos -->
+  <div class="search-overlay" *ngIf="isOpen">
+    <div class="overlay-blue"></div>
+
+    <div class="overlay-panel">
+      <div class="panel-inner">
+        <div class="left-col">
+          <h4>Lo más buscado</h4>
+          <div class="pills">
+            <button type="button" class="pill" *ngFor="let p of popular" (click)="selectPopular(p)">{{ p }}</button>
+          </div>
+        </div>
+
+        <div class="right-col">
+          <h4>Productos vistos</h4>
+          <ul class="recent-list">
+            <li class="recent-item" *ngFor="let r of recent">
+              <img [src]="r.image" alt="" />
+              <div class="recent-info">
+                <div class="recent-title">{{ r.title }}</div>
+                <div class="recent-price">{{ r.price }}</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </form>
