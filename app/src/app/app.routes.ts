@@ -4,6 +4,7 @@ import { Home } from './pages/home/home';
 import { LoginOptions } from './pages/login-options/login-options';
 import { Register } from './pages/register/register';
 import { EmailVerification } from './pages/email-verification/email-verification';
+import { SearchView } from './pages/search-view/search-view';
 
 export const routes: Routes = [
   {
@@ -26,4 +27,8 @@ export const routes: Routes = [
     path: 'emailVerification',
     component: EmailVerification,
   },
+  {
+    path: 'search-view',
+    component: SearchView,
+  }
 ];
