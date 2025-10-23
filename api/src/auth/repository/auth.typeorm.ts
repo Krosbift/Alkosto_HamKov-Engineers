@@ -5,16 +5,28 @@ import { AuthRepository } from './auth.repository';
 export class AuthTypeorm implements AuthRepository {
   constructor(private readonly dataSource: DataSource) {}
 
-  readOptCode(where: FindOptionsWhere<AuthOptEntity>): Promise<AuthOptEntity> {
+  public async readOptCode(
+    where: FindOptionsWhere<AuthOptEntity>,
+  ): Promise<AuthOptEntity | null> {
     try {
-      
+      return await this.performTransaction(async (queryRunner: QueryRunner) => {
+        return await queryRunner.manager.findOne(AuthOptEntity, {
+          where,
+        });
+      });
     } catch (error) {
-      
+      throw error;
     }
   }
 
-  genOptCode(entity: AuthOptEntity): Promise<AuthOptEntity> {
-    throw new Error('Method not implemented.');
+  public async genOptCode(entity: AuthOptEntity): Promise<AuthOptEntity> {
+    try {
+      return await this.performTransaction(async (queryRunner: QueryRunner) => {
+        return await queryRunner.manager.save(AuthOptEntity, entity);
+      });
+    } catch (error) {
+      throw new Error();
+    }
   }
 
   private async performTransaction<T>(

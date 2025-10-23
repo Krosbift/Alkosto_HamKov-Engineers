@@ -8,6 +8,10 @@ export class AuthController {
 
   @Post('generate-opt-code')
   generateOptCode(@Body() body: GenerateOtpCodeDto) {
-    return this.service.generateOptCode(body);
+    return this.service.generateOptCode(
+      body.method,
+      body.email,
+      body.phoneNumber,
+    );
   }
 }
