@@ -12,9 +12,8 @@ export class AuthOptEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
 
-  @ManyToOne(() => UsersEntity, { nullable: false })
-  @JoinColumn({ name: 'id_usuario', referencedColumnName: 'id' })
-  usuario: UsersEntity;
+  @Column({ type: 'int', name: 'id_usuario' })
+  id_usuario: number;
 
   @Column({ type: 'varchar', name: 'otp_code', length: 6, nullable: true })
   otpCode: string | null;
@@ -33,4 +32,8 @@ export class AuthOptEntity {
     nullable: true,
   })
   verified: string | null;
+
+  @ManyToOne(() => UsersEntity, { nullable: false })
+  @JoinColumn({ name: 'id_usuario', referencedColumnName: 'id' })
+  usuario: UsersEntity;
 }

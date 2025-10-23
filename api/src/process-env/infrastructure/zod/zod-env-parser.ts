@@ -9,6 +9,10 @@ export class ZodEnvParser implements IEnvParser {
     postgreURL: z.string(),
     emailUser: z.string(),
     emailPassword: z.string(),
+    twilioSid: z.string(),
+    twilioToken: z.string(),
+    twilioSMSNumber: z.string(),
+    twilioWhatsappNumber: z.string(),
   });
 
   public async parse(env: NodeJS.ProcessEnv): Promise<ProcessEnvType> {
@@ -18,6 +22,10 @@ export class ZodEnvParser implements IEnvParser {
       postgreURL: env.DATABASE_CONNECTION_STRING,
       emailUser: env.EMAIL_USER,
       emailPassword: env.EMAIL_PASSWORD,
+      twilioSid: env.TWILIO_SID,
+      twilioToken: env.TWILIO_TOKEN,
+      twilioSMSNumber: env.TWILIO_SMS_NUMBER,
+      twilioWhatsappNumber: env.TWILIO_WHATSAPP_NUMBER,
     });
   }
 }

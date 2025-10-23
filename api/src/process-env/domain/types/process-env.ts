@@ -4,4 +4,8 @@ export type ProcessEnvType = {
   postgreURL: string;
   emailUser: string;
   emailPassword: string;
-}
+  twilioSid: string;
+  twilioToken: string;
+  twilioSMSNumber: string;
+  twilioWhatsappNumber: string;
+};
