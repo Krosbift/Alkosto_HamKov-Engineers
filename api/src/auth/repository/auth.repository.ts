@@ -5,5 +5,5 @@ export abstract class AuthRepository {
   abstract readOptCode(
     where: FindOptionsWhere<AuthOptEntity>,
   ): Promise<AuthOptEntity>;
-  abstract genOptCode(): Promise<AuthOptEntity>;
+  abstract genOptCode(entity: AuthOptEntity): Promise<AuthOptEntity>;
 }

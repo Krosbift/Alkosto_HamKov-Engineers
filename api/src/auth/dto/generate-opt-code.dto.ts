@@ -1,13 +1,52 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  ValidateIf,
+} from 'class-validator';
+
+export enum OtpDeliveryMethod {
+  EMAIL = 'email',
+  SMS = 'sms',
+}
 
 export class GenerateOtpCodeDto {
   @ApiProperty({
-    description: 'Correo electrónico del usuario',
-    example: 'usuario@correo.com',
+    description: 'Método de envío del código OTP',
+    enum: OtpDeliveryMethod,
+    example: OtpDeliveryMethod.EMAIL,
     required: true,
   })
-  @IsNotEmpty({ message: 'El correo electrónico es requerido' })
+  @IsNotEmpty({ message: 'El método es requerido' })
+  @IsEnum(OtpDeliveryMethod, {
+    message: 'El método debe ser "email" o "sms"',
+  })
+  method: OtpDeliveryMethod;
+
+  @ApiPropertyOptional({
+    description: 'Correo electrónico del usuario',
+    example: 'usuario@correo.com',
+    required: false,
+  })
+  @ValidateIf(o => o.method === OtpDeliveryMethod.EMAIL)
+  @IsNotEmpty({
+    message: 'El correo electrónico es requerido cuando el método es "email"',
+  })
   @IsEmail({}, { message: 'El correo electrónico no es válido' })
-  email: string;
+  email?: string;
+
+  @ApiPropertyOptional({
+    description:
+      'Número de teléfono del usuario en formato internacional E.164',
+    example: '+573001112233',
+    required: false,
+  })
+  @ValidateIf(o => o.method === OtpDeliveryMethod.SMS)
+  @IsNotEmpty({
+    message: 'El número de teléfono es requerido cuando el método es "sms"',
+  })
+  @IsString({ message: 'El número de teléfono debe ser una cadena' })
+  phoneNumber?: string;
 }
