@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 type Store = {
   name: string;
@@ -9,35 +10,84 @@ type Store = {
 
 @Component({
   selector: 'app-our-stores',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './our-stores.html',
   styleUrl: './our-stores.scss'
 })
 export class OurStores {
+  protected activeIndex: number | null = null;
+  protected searchTerm: string = '';
+  protected filteredStores: Store[] = [];
 
-  protected scheduleToday() {
-    const day = new Date().getDay()
-    return day - 1;
+  constructor() {
+    this.filteredStores = this.stores;
   }
+
+  protected filterStores(): void {
+    const term = this.searchTerm.toLowerCase().trim();
+    
+    if (!term) {
+      this.filteredStores = this.stores;
+      return;
+    }
+
+    this.filteredStores = this.stores.filter(store => 
+      store.name.toLowerCase().includes(term) ||
+      store.address.toLowerCase().includes(term)
+    );
+  }
+
+protected scheduleToday() {
+  const day = new Date().getDay();
+  return day === 0 ? 6 : day - 1;
+}
 
   protected openOrClose(item: Store): boolean {
-    const hour = new Date().getHours();
-    const today = item.schedule[this.scheduleToday()];
+    // Current time with minutes precision
+    const now = new Date();
+    const current = now.getHours() + now.getMinutes() / 60;
 
-    const hola = today.split(": ");
-    const [ open, close ] = hola[1].split(" - ")
+    // Example line: "Lunes: 08:00 a. m. - 9:00 p. m." or "Lunes: 8:00 a.m. - 9:00 p.m."
+    const todayLine = item.schedule[this.scheduleToday()];
 
-    const hourOpen = this.toHour(open);
-    const hourClose = this.toHour(close);
+    // Grab the part after the first ':' to skip the day name
+    const firstColon = todayLine.indexOf(':');
+    const rangePart = firstColon !== -1 ? todayLine.slice(firstColon + 1) : todayLine;
 
-    return ( hourOpen <= hour && hour < hourClose);
+    // Split by '-' robustly (with/without surrounding spaces)
+    const parts = rangePart.split('-').map(p => p.trim());
+    if (parts.length < 2) return false; // fallback safe
+
+    const hourOpen = this.toHour(parts[0]);
+    const hourClose = this.toHour(parts[1]);
+
+    if (isNaN(hourOpen) || isNaN(hourClose)) return false; // cannot determine -> closed by default
+
+    return (hourOpen <= current && current < hourClose);
   }
 
-  protected toHour(hour: string): number { // ["08:00 a. m."] || [9:00 p. m.]
-    const [ hourNumber, rest ] = hour.split(":");
-    const hourToNumber = Number(hourNumber);
-    const resultHour = rest.indexOf("a. m.") != -1 ? hourToNumber : hourToNumber + 12;
-    return hourToNumber == 12 ? 0 : resultHour;
+protected toHour(time: string): number {
+  // Normalize: remove dots and spaces, keep lowercase
+  const cleaned = time
+    .toLowerCase()
+    .replace(/\./g, '')
+    .replace(/\s+/g, ''); // "08:00am", "9:00pm"
+
+  const match = cleaned.match(/^(\d{1,2}):(\d{2})(am|pm)?$/);
+  if (!match) return NaN;
+
+  let h = Number(match[1]);
+  const m = Number(match[2]);
+  const suffix = match[3]; // am | pm | undefined
+
+  if (suffix === 'pm' && h !== 12) h += 12;
+  if (suffix === 'am' && h === 12) h = 0;
+
+  return h + m / 60;
+}
+
+  protected toggleCollapse(index: number): void {
+    this.activeIndex = this.activeIndex === index ? null : index;
   }
 
   protected readonly stores: Store[] = [
@@ -237,6 +287,6 @@ export class OurStores {
         "Domingo: 10:00 a.m. - 6:00 p.m.",
       ]
     },
-    
+
   ];
 }
