@@ -43,8 +43,9 @@ export class MyAccount {
   private checkUserSession(): void {
     const userName = localStorage.getItem('userName');
     const userEmail = localStorage.getItem('userEmail');
+    const logged = localStorage.getItem('🦈');
 
-    if (userName && userEmail) {
+    if (userName && userEmail && logged) {
       this.isLoggedIn.set(true);
       this.userName.set(userName);
       this.userEmail.set(userEmail);
