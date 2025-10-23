@@ -10,7 +10,6 @@ export class AuthTypeorm implements AuthRepository {
     where: FindOptionsWhere<AuthOptEntity>,
   ): Promise<AuthOptEntity[] | null> {
     const { otpExpiresAt, ...rest } = where;
-    console.log(new Date());
     try {
       return await this.performTransaction(async (queryRunner: QueryRunner) => {
         return await queryRunner.manager.find(AuthOptEntity, {

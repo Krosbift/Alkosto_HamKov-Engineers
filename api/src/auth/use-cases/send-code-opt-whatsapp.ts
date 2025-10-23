@@ -32,7 +32,7 @@ export class SendOtpWhatsapp {
   ): Promise<{ code: string; expiresAt: Date }> {
     this.ensureValidWhatsApp(phoneE164);
 
-    const expiresAt = new Date(Date.now() + this.ttlMinutes * 1_000);
+    const expiresAt = new Date(Date.now() + this.ttlMinutes * 60_000);
 
     const minutesLabel =
       this.ttlMinutes === 1 ? '1 minuto' : `${this.ttlMinutes} minutos`;

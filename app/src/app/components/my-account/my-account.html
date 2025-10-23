@@ -5,10 +5,10 @@
 
 <div class="triangle" [class.active]="stateMenu"></div>
 <div class="menu" [class.active]="stateMenu">
-  @if (isLoggedIn()) {
+  @if (loginState.isLoggedIn()) {
   <div class="account-logged">
     <div class="user-header">
-      <h3>Bienvenido/{{ userName() }}</h3>
+      <h3>Bienvenido/{{ loginState.displayName() }}</h3>
       <a class="logout-link" (click)="logout()">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <g

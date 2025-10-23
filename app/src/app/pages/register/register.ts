@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Register as MyRegisterService } from '../../services/register';
+import { LoginState } from '../../services/login-state';
 import { UserBaseInfo } from '../../types/register-user';
 
 @Component({
@@ -19,7 +20,8 @@ export class Register {
   constructor(
     private readonly router: Router,
     private readonly fb: FormBuilder,
-    private readonly myRegisterService: MyRegisterService
+    private readonly myRegisterService: MyRegisterService,
+    private readonly loginState: LoginState
   ) {
     const navigation = this.router.currentNavigation();
     if (navigation?.extras?.state) {
@@ -63,11 +65,12 @@ export class Register {
 
     this.myRegisterService.UserBaseInfo(user).subscribe({
       next: (res: UserBaseInfo) => {
-        localStorage.setItem('userName', res.nombre);
-        localStorage.setItem('userLastName', res.apellido);
-        localStorage.setItem('userEmail', res.email);
-        localStorage.setItem('userPhoneNumber', res.telefono);
-        localStorage.setItem('🦈', 'logged');
+        this.loginState.setLoggedIn({
+          nombre: res.nombre,
+          email: res.email,
+          telefono: res.telefono,
+          apellido: res.apellido,
+        });
         this.router.navigate(['/']);
       },
       error: (err) => {

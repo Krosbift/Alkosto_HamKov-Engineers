@@ -30,7 +30,7 @@ export class SendOtpSms {
   ): Promise<{ code: string; expiresAt: Date }> {
     this.ensureValidPhone(phone);
 
-    const expiresAt = new Date(Date.now() + this.ttlMinutes * 1_000);
+    const expiresAt = new Date(Date.now() + this.ttlMinutes * 60_000);
 
     const body = this.renderBody(code);
 

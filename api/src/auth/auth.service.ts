@@ -47,7 +47,7 @@ export class AuthService {
   ) {
     const user = await this.repository.findUser({ email: email });
     if (!user) {
-      throw new Error();
+      return false;
     }
 
     const optCode = this.generate6DigitCode();
@@ -77,6 +77,8 @@ export class AuthService {
       id_usuario: user.id,
       otpExpiresAt: expirationDate,
     });
+
+    return true;
   }
 
   private generate6DigitCode(): string {

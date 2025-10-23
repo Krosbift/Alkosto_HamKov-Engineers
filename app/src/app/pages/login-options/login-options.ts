@@ -35,7 +35,7 @@ export class LoginOptions {
 
   protected openVerification(method: string): void {
     this.loginService
-      .genOptCode(method, this.email, localStorage.getItem('userPhoneNumber') || '')
+      .genOptCode(method, this.email, `+57${localStorage.getItem('userPhoneNumber')}` || '')
       .subscribe({
         next: (res) => {
           if (res) {

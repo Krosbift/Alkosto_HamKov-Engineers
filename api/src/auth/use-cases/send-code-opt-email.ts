@@ -37,7 +37,7 @@ export class SendOtpEmail {
   ): Promise<{ code: string; expiresAt: Date }> {
     this.ensureValidEmail(email);
 
-    const expiresAt = new Date(Date.now() + this.ttlMinutes * 1_000);
+    const expiresAt = new Date(Date.now() + this.ttlMinutes * 60_000);
 
     const subject = `${this.appName} - Tu código es ${code}`;
     const text = this.renderText(code);

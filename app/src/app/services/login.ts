@@ -23,7 +23,7 @@ export class Login {
   validateOptCode(optCode: string, method: string, email: string): Observable<boolean> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<boolean>(
-      `${BASEURL}/auth/generate-opt-code?email=${email}&optCode=${optCode}&method=${method}`,
+      `${BASEURL}/auth/valid-opt-code?email=${email}&optCode=${optCode}&method=${method}`,
       {
         headers,
       }

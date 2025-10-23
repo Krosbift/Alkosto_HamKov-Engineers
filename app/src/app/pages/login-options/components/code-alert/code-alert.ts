@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Login as LoginService } from '../../../../services/login';
+import { LoginState } from '../../../../services/login-state';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-code-alert',
@@ -22,6 +23,7 @@ export class CodeAlert {
   constructor(
     private readonly fb: FormBuilder,
     private readonly loginService: LoginService,
+    private readonly loginState: LoginState,
     private readonly router: Router
   ) {
     this.codeForm = this.fb.group({
@@ -94,7 +96,12 @@ export class CodeAlert {
         .subscribe({
           next: (res) => {
             if (res) {
-              localStorage.setItem('🦈', 'logged');
+              this.loginState.setLoggedIn({
+                nombre: localStorage.getItem('userName') || '',
+                email: localStorage.getItem('userEmail') || '',
+                telefono: localStorage.getItem('userPhoneNumber') || '',
+                apellido: '',
+              });
               this.verificationError.set('');
               this.close();
               this.router.navigate(['/']);

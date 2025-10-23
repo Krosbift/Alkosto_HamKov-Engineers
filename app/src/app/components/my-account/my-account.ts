@@ -1,6 +1,7 @@
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component, signal, effect } from '@angular/core';
+import { LoginState } from '../../services/login-state';
 import { Router } from '@angular/router';
 
 import { MyAccount as MyAccountService } from '../../services/my-account';
@@ -15,14 +16,12 @@ export class MyAccount {
   protected emailForm: FormGroup;
   protected stateMenu: boolean = false;
   protected emailTouched = signal<boolean>(false);
-  protected isLoggedIn = signal<boolean>(false);
-  protected userName = signal<string>('');
-  protected userEmail = signal<string>('');
 
   constructor(
     private readonly fb: FormBuilder,
     private readonly router: Router,
-    private readonly myAccountService: MyAccountService
+    private readonly myAccountService: MyAccountService,
+    protected readonly loginState: LoginState
   ) {
     this.emailForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -36,22 +35,6 @@ export class MyAccount {
         this.emailTouched.set(true);
       }
     });
-
-    this.checkUserSession();
-  }
-
-  private checkUserSession(): void {
-    const userName = localStorage.getItem('userName');
-    const userEmail = localStorage.getItem('userEmail');
-    const logged = localStorage.getItem('🦈');
-
-    if (userName && userEmail && logged) {
-      this.isLoggedIn.set(true);
-      this.userName.set(userName);
-      this.userEmail.set(userEmail);
-    } else {
-      this.isLoggedIn.set(false);
-    }
   }
 
   protected formError(): boolean {
@@ -86,11 +69,7 @@ export class MyAccount {
       this.myAccountService.findUserByEmail(email).subscribe({
         next: (res) => {
           if (res) {
-            localStorage.setItem('userName', res.nombre);
-            localStorage.setItem('userLastName', res.apellido);
-            localStorage.setItem('userEmail', res.email);
-            localStorage.setItem('userPhoneNumber', res.telefono);
-
+            this.loginState.setUser(res);
             this.router.navigate(['/login/options'], {
               state: { email: email, userExists: true },
             });
@@ -117,13 +96,7 @@ export class MyAccount {
   }
 
   protected logout(): void {
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userLastName');
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('userPhoneNumber');
-    this.isLoggedIn.set(false);
-    this.userName.set('');
-    this.userEmail.set('');
+    this.loginState.setLoggedOut();
     this.closeMenu();
     this.router.navigate(['/']);
   }
