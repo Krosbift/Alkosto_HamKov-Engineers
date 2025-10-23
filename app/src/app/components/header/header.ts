@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Search } from '../search/search';
 import { Catalog } from '../catalog/catalog';
 import { MyAccount } from '../my-account/my-account';
 import { ShoppingCart } from '../shopping-cart/shopping-cart';
+import { Search } from '../search/search';
 
 @Component({
   selector: 'app-header',
