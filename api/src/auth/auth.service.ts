@@ -13,6 +13,33 @@ export class AuthService {
     private readonly sendWhatsapp: SendOtpWhatsapp,
   ) {}
 
+  public async validOptCode(optCode: string, email: string, method: string) {
+    const user = await this.repository.findUser({ email });
+    if (!user) {
+      return false;
+    }
+
+    const optData = await this.repository.readOptCode({
+      id_usuario: user.id,
+      method,
+      verified: 'N',
+    });
+
+    if (!optData || optData.length === 0) {
+      return false;
+    }
+
+    const regOptCode = optData.find(reg => reg.otpCode === optCode);
+    if (!Boolean(regOptCode) || !regOptCode) {
+      return false;
+    }
+
+    const updateReg = await this.repository.updateOptCode(regOptCode.id, {
+      verified: 'S',
+    });
+    return Boolean(updateReg);
+  }
+
   public async generateOptCode(
     method: string,
     email: string,
@@ -29,19 +56,19 @@ export class AuthService {
     if (method === 'email') {
       const { expiresAt } = await this.sendEmail.execute(email, optCode);
       expirationDate = expiresAt;
-      return true;
     }
 
-    if (method === 'sms') {
-      const { expiresAt } = await this.sendSMS.execute(email, optCode);
+    if (method === 'sms' && phoneNumber) {
+      const { expiresAt } = await this.sendSMS.execute(phoneNumber, optCode);
       expirationDate = expiresAt;
-      return true;
     }
 
-    if (method === 'whatsapp') {
-      const { expiresAt } = await this.sendWhatsapp.execute(email, optCode);
+    if (method === 'whatsapp' && phoneNumber) {
+      const { expiresAt } = await this.sendWhatsapp.execute(
+        phoneNumber,
+        optCode,
+      );
       expirationDate = expiresAt;
-      return true;
     }
 
     await this.repository.genOptCode({

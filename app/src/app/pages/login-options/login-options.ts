@@ -1,6 +1,7 @@
 import { Component, signal, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CodeAlert } from './components/code-alert/code-alert';
+import { Login as LoginService } from '../../services/login';
 
 @Component({
   imports: [CodeAlert],
@@ -10,11 +11,11 @@ import { CodeAlert } from './components/code-alert/code-alert';
 })
 export class LoginOptions {
   @ViewChild(CodeAlert) codeAlert!: CodeAlert;
-  
+
   protected email: string = '';
   protected lastFourDigits = signal<string>('****');
 
-  constructor(private readonly router: Router) {
+  constructor(private readonly router: Router, private readonly loginService: LoginService) {
     const navigation = this.router.currentNavigation();
     if (navigation?.extras?.state) {
       this.email = navigation.extras.state['email'];
@@ -33,7 +34,17 @@ export class LoginOptions {
   }
 
   protected openVerification(method: string): void {
-    // aqui craer el código de verificación
-    this.codeAlert.open(method);
+    this.loginService
+      .genOptCode(method, this.email, localStorage.getItem('userPhoneNumber') || '')
+      .subscribe({
+        next: (res) => {
+          if (res) {
+            this.codeAlert.open(method);
+          }
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
   }
 }

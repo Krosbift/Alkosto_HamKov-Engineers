@@ -41,7 +41,7 @@ import {
           authToken: process.env.TWILIO_TOKEN!,
           from: process.env.TWILIO_SMS_NUMBER!,
           appName: 'AkostoUTP',
-          ttlMinutes: 10,
+          ttlMinutes: 1,
         };
         return new SendOtpSms(cfg);
       },
@@ -54,7 +54,7 @@ import {
           authToken: process.env.TWILIO_TOKEN!,
           from: `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER!}`,
           appName: 'AkostoUTP',
-          ttlMinutes: 10,
+          ttlMinutes: 1,
         };
         return new SendOtpWhatsapp(cfg);
       },

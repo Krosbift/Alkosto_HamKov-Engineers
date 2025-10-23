@@ -67,6 +67,7 @@ export class Register {
         localStorage.setItem('userLastName', res.apellido);
         localStorage.setItem('userEmail', res.email);
         localStorage.setItem('userPhoneNumber', res.telefono);
+        localStorage.setItem('🦈', 'logged');
         this.router.navigate(['/']);
       },
       error: (err) => {

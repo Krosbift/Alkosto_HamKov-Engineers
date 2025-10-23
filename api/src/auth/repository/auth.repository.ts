@@ -5,10 +5,14 @@ import { UsersEntity } from '../entities/users.entity';
 export abstract class AuthRepository {
   abstract readOptCode(
     where: FindOptionsWhere<AuthOptEntity>,
-  ): Promise<AuthOptEntity | null>;
+  ): Promise<AuthOptEntity[] | null>;
   abstract genOptCode(
     entity: Omit<AuthOptEntity, 'id' | 'activo' | 'verified' | 'usuario'>,
   ): Promise<AuthOptEntity>;
+  abstract updateOptCode(
+    id: number,
+    entity: Partial<AuthOptEntity>,
+  ): Promise<AuthOptEntity | null>;
   abstract findUser(
     where: FindOptionsWhere<UsersEntity>,
   ): Promise<UsersEntity | null>;

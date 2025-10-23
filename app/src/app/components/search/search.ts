@@ -36,7 +36,6 @@ export class Search {
     if (this.searchInputRef && this.searchInputRef.nativeElement) {
       this.searchInputRef.nativeElement.value = s;
     }
-    console.log('Selected suggestion:', s);
   }
 
   selectPopular(p: string) {

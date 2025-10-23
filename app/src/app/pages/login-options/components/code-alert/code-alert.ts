@@ -1,7 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Login as LoginService } from '../../../../services/login';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-code-alert',
   imports: [CommonModule, ReactiveFormsModule],
@@ -15,9 +16,14 @@ export class CodeAlert {
   protected userAuthMethodAddress = signal<string>('');
   protected codeForm: FormGroup;
   protected countdown = signal<number>(0);
+  protected verificationError = signal<string>('');
   private countdownInterval: any;
 
-  constructor(private readonly fb: FormBuilder) {
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly loginService: LoginService,
+    private readonly router: Router
+  ) {
     this.codeForm = this.fb.group({
       digit1: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
       digit2: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
@@ -43,6 +49,7 @@ export class CodeAlert {
     this.isOpen.set(true);
     this.startCountdown();
     this.codeForm.reset();
+    this.verificationError.set('');
   }
 
   protected close(): void {
@@ -82,16 +89,49 @@ export class CodeAlert {
   protected onSubmit(): void {
     if (this.codeForm.valid) {
       const code = Object.values(this.codeForm.value).join('');
-      // Aquí llamarías al servicio de verificación
-      this.close();
+      this.loginService
+        .validateOptCode(code, this.verificationMethod(), localStorage.getItem('userEmail') || '')
+        .subscribe({
+          next: (res) => {
+            if (res) {
+              localStorage.setItem('🦈', 'logged');
+              this.verificationError.set('');
+              this.close();
+              this.router.navigate(['/']);
+              return;
+            }
+            this.verificationError.set('Código inválido. Verifica e intenta de nuevo.');
+            this.codeForm.markAllAsTouched();
+            const first = document.querySelector(
+              'input[formControlName="digit1"]'
+            ) as HTMLInputElement;
+            if (first) first.focus();
+          },
+          error: (err) => {
+            console.error(err);
+            this.verificationError.set('Error al verificar el código. Intenta más tarde.');
+          },
+        });
     } else {
       this.codeForm.markAllAsTouched();
     }
   }
 
   protected resendCode(): void {
-    this.startCountdown();
-    // Aquí llamarías al servicio para reenviar el código
+    this.loginService
+      .genOptCode(
+        this.verificationMethod(),
+        localStorage.getItem('userEmail') || '',
+        `+57${localStorage.getItem('userPhoneNumber') || ''}`
+      )
+      .subscribe({
+        next: (res) => {
+          this.startCountdown();
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
   }
 
   protected changeMethod(): void {

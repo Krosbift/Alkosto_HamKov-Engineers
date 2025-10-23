@@ -64,9 +64,13 @@
         />
       </div>
 
-      @if (hasError) {
-      <p class="error-message">Por favor complete el campo.</p>
-      }
+  @if (hasError) {
+  <p class="error-message">Por favor complete el campo.</p>
+  }
+
+  @if (verificationError()) {
+  <p class="error-message server">{{ verificationError() }}</p>
+  }
 
       <div class="resend-section">
         <button type="button" class="resend-btn" [disabled]="!canResend" (click)="resendCode()">

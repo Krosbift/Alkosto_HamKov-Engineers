@@ -1,21 +1,14 @@
-// api/src/auth/use-cases/send-otp-sms.ts
 import { Injectable, Logger } from '@nestjs/common';
 import { Twilio } from 'twilio';
-
-// Si instalaste libphonenumber-js, descomenta y úsalo en ensureValidPhone()
-// import { parsePhoneNumber } from 'libphonenumber-js';
 
 export interface TwilioSmsConfig {
   accountSid: string;
   authToken: string;
-  from: string; // Número remitente de Twilio (E.164), p.ej. +12025550123
-  appName?: string; // Para asunto/cuerpo (branding)
-  ttlMinutes?: number; // TTL del código (default: 10)
+  from: string;
+  appName?: string;
+  ttlMinutes?: number;
 }
 
-/**
- * Servicio para enviar OTP de 6 dígitos por SMS usando Twilio.
- */
 @Injectable()
 export class SendOtpSms {
   private readonly logger = new Logger(SendOtpSms.name);
@@ -37,7 +30,7 @@ export class SendOtpSms {
   ): Promise<{ code: string; expiresAt: Date }> {
     this.ensureValidPhone(phone);
 
-    const expiresAt = new Date(Date.now() + this.ttlMinutes * 180_000);
+    const expiresAt = new Date(Date.now() + this.ttlMinutes * 1_000);
 
     const body = this.renderBody(code);
 

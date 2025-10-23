@@ -23,7 +23,7 @@ export class SendOtpWhatsapp {
     this.from = cfg.from.startsWith('whatsapp:')
       ? cfg.from
       : `whatsapp:${cfg.from}`;
-    this.ttlMinutes = cfg.ttlMinutes ?? 10;
+    this.ttlMinutes = cfg.ttlMinutes ?? 1;
   }
 
   async execute(
@@ -32,8 +32,24 @@ export class SendOtpWhatsapp {
   ): Promise<{ code: string; expiresAt: Date }> {
     this.ensureValidWhatsApp(phoneE164);
 
-    const expiresAt = new Date(Date.now() + this.ttlMinutes * 60_000);
-    const body = `${this.appName}: Tu código es *${code}*. Expira en ${this.ttlMinutes} minutos. Si no lo solicitaste, ignora este mensaje.`;
+    const expiresAt = new Date(Date.now() + this.ttlMinutes * 1_000);
+
+    const minutesLabel =
+      this.ttlMinutes === 1 ? '1 minuto' : `${this.ttlMinutes} minutos`;
+    const body = [
+      '¡Hola! 👋',
+      `Estás verificando tu número para ${this.appName}.`,
+      '',
+      `Tu código de verificación es: *${code}*`,
+      `⏳ Caduca en ${minutesLabel}. Es de un solo uso.`,
+      '',
+      'Sigue estos pasos:',
+      `1) Abre ${this.appName} e ingresa el código tal como aparece.`,
+      `2) No compartas este código. El equipo de ${this.appName} nunca lo pedirá.`,
+      '3) Si no fuiste tú, ignora este mensaje.',
+      '',
+      `— Equipo de ${this.appName}`,
+    ].join('\n');
 
     try {
       await this.client.messages.create({
