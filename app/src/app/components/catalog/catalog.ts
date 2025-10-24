@@ -1,12 +1,15 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-catalog',
+  imports: [CommonModule],
   templateUrl: './catalog.html',
   styleUrl: './catalog.scss',
 })
 export class Catalog {
   protected menuOpen = false;
+  protected selectedCategory: string = 'Celulares';
 
   constructor() {}
 
@@ -23,26 +26,7 @@ export class Catalog {
     this.menuOpen = false;
   }
 
-  @HostListener('document:click', ['$event'])
-  protected onDocumentClick(event: Event): void {
-    if (!this.menuOpen) return;
-    const target = event.target as Element | null;
-    const inside = target && target.closest && target.closest('#tech-dropdown');
-    if (!inside) {
-      this.menuOpen = false;
-    }
-  }
-
-  @HostListener('document:keydown.escape')
-  protected onEscape(): void {
-    if (this.menuOpen) {
-      this.menuOpen = false;
-    }
-  }
-
-  ngOnDestroy(): void {
-    try {
-      document.body.classList.remove('catalog-menu-open');
-    } catch (e) {}
+  protected selectCategory(name: string): void {
+    this.selectedCategory = name;
   }
 }

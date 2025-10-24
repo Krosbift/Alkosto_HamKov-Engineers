@@ -10,7 +10,7 @@
 
     <ul class="menu">
       <!-- Tecnología dropdown (opens on click) -->
-      <li id="tech-dropdown" class="dropdown" [class.active]="menuOpen" [class.show]="menuOpen">
+      <li id="tech-dropdown" class="dropdown" [class.active]="menuOpen">
         <a
           href="#"
           (click)="toggleMenu($event)"
@@ -24,78 +24,182 @@
           class="dropdown-menu"
           role="menu"
           aria-labelledby="tech-dropdown"
-          [class.show]="menuOpen"
           [attr.aria-hidden]="!menuOpen"
+          [class.active]="menuOpen"
         >
           <div class="menu-left">
             <ul>
-              <li class="active">Celulares</li>
-              <li>Computadores</li>
-              <li>Televisores</li>
-              <li>Accesorios de tecnología</li>
-              <li>Audio</li>
-              <li>Consolas y videojuegos</li>
-              <li>Cámaras</li>
-              <li>Casa inteligente</li>
-              <li>Impresoras</li>
-              <li>Monitores</li>
-              <li>Proyectores</li>
-              <li>Smartwatch</li>
-              <li>Tablets</li>
+              <li
+                (click)="selectCategory('Celulares')"
+                [class.active]="selectedCategory === 'Celulares'"
+              >
+                Celulares
+              </li>
+              <li
+                (click)="selectCategory('Computadores')"
+                [class.active]="selectedCategory === 'Computadores'"
+              >
+                Computadores
+              </li>
+              <li
+                (click)="selectCategory('Televisores')"
+                [class.active]="selectedCategory === 'Televisores'"
+              >
+                Televisores
+              </li>
+              <li
+                (click)="selectCategory('Accesorios de tecnología')"
+                [class.active]="selectedCategory === 'Accesorios de tecnología'"
+              >
+                Accesorios de tecnología
+              </li>
+              <li (click)="selectCategory('Audio')" [class.active]="selectedCategory === 'Audio'">
+                Audio
+              </li>
+              <li
+                (click)="selectCategory('Consolas y videojuegos')"
+                [class.active]="selectedCategory === 'Consolas y videojuegos'"
+              >
+                Consolas y videojuegos
+              </li>
+              <li
+                (click)="selectCategory('Cámaras')"
+                [class.active]="selectedCategory === 'Cámaras'"
+              >
+                Cámaras
+              </li>
+              <li
+                (click)="selectCategory('Casa inteligente')"
+                [class.active]="selectedCategory === 'Casa inteligente'"
+              >
+                Casa inteligente
+              </li>
+              <li
+                (click)="selectCategory('Impresoras')"
+                [class.active]="selectedCategory === 'Impresoras'"
+              >
+                Impresoras
+              </li>
+              <li
+                (click)="selectCategory('Monitores')"
+                [class.active]="selectedCategory === 'Monitores'"
+              >
+                Monitores
+              </li>
+              <li
+                (click)="selectCategory('Proyectores')"
+                [class.active]="selectedCategory === 'Proyectores'"
+              >
+                Proyectores
+              </li>
+              <li
+                (click)="selectCategory('Smartwatch')"
+                [class.active]="selectedCategory === 'Smartwatch'"
+              >
+                Smartwatch
+              </li>
+              <li
+                (click)="selectCategory('Tablets')"
+                [class.active]="selectedCategory === 'Tablets'"
+              >
+                Tablets
+              </li>
             </ul>
           </div>
 
           <div class="menu-right">
+            @if (selectedCategory === 'Celulares') {
             <div class="menu-right-header">
-              <h3>Celulares</h3>
-              <a class="ver-todo" href="#">Ver todo →</a>
+              <div>
+                <h3>{{ selectedCategory }}</h3>
+                <a class="ver-todo" href="#">Ver todo →</a>
+              </div>
               <button class="close-btn" aria-label="Cerrar submenú" (click)="closeMenu()">×</button>
             </div>
-
             <p class="subtitle">Marca</p>
             <div class="brands">
               <div class="brand-item">
-                <img src="img/apple.png" alt="Apple" /><span>Apple</span>
+                <img src="img/brands/apple.png" alt="Apple" /><span>Apple</span>
               </div>
               <div class="brand-item">
-                <img src="img/samsung.png" alt="Samsung" /><span>Samsung</span>
+                <img src="img/brands/samsung.png" alt="Samsung" /><span>Samsung</span>
               </div>
               <div class="brand-item">
-                <img src="img/motorola.png" alt="Motorola" /><span>Motorola</span>
+                <img src="img/brands/motorola.png" alt="Motorola" /><span>Motorola</span>
               </div>
               <div class="brand-item">
-                <img src="img/honor.png" alt="Honor" /><span>Honor</span>
+                <img src="img/brands/honor.png" alt="Honor" /><span>Honor</span>
               </div>
               <div class="brand-item">
-                <img src="img/xiaomi.png" alt="Xiaomi" /><span>Xiaomi</span>
+                <img src="img/brands/xiaomi.png" alt="Xiaomi" /><span>Xiaomi</span>
               </div>
               <div class="brand-item">
-                <img src="img/huawei.png" alt="Huawei" /><span>Huawei</span>
-              </div>
-              <div class="brand-item"><img src="img/oppo.png" alt="Oppo" /><span>Oppo</span></div>
-              <div class="brand-item"><img src="img/vivo.png" alt="Vivo" /><span>Vivo</span></div>
-              <div class="brand-item">
-                <img src="img/tecno.png" alt="Tecno" /><span>Tecno</span>
-              </div>
-              <div class="brand-item">
-                <img src="img/realme.png" alt="realme" /><span>realme</span>
-              </div>
-              <div class="brand-item"><img src="img/tcl.png" alt="TCL" /><span>TCL</span></div>
-              <div class="brand-item">
-                <img src="img/kalley.png" alt="Kalley" /><span>Kalley</span>
-              </div>
-              <div class="brand-item"><img src="img/zte.png" alt="ZTE" /><span>ZTE</span></div>
-              <div class="brand-item">
-                <img src="img/infinix.png" alt="Infinix" /><span>Infinix</span>
+                <img src="img/brands/huawei.png" alt="Huawei" /><span>Huawei</span>
               </div>
             </div>
-
-            <div class="related">
-              <p>
-                Productos relacionados: <a href="#">Accesorios para celulares</a>
-                <a href="#">Seguro gratis para celulares</a> <a href="#">Plan Retoma</a>
-              </p>
+            } @else if (selectedCategory === 'Computadores') {
+            <div class="menu-right-header">
+              <div>
+                <h3>{{ selectedCategory }}</h3>
+                <a class="ver-todo" href="#">Ver todo →</a>
+              </div>
+              <button class="close-btn" aria-label="Cerrar submenú" (click)="closeMenu()">×</button>
             </div>
+            <p class="subtitle">Marca</p>
+            <div class="brands">
+              <div class="brand-item"><img src="img/brands/hp.webp" alt="HP" /><span>HP</span></div>
+              <div class="brand-item">
+                <img src="img/brands/lenovo.webp" alt="Lenovo" /><span>Lenovo</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/brands/apple.png" alt="Apple" /><span>Apple</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/brands/asus.webp" alt="Asus" /><span>Asus</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/brands/acer.webp" alt="Acer" /><span>Acer</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/brands/msi.webp" alt="MSI" /><span>MSI</span>
+              </div>
+            </div>
+            } @else if (selectedCategory === 'Televisores') {
+            <div class="menu-right-header">
+              <div>
+                <h3>{{ selectedCategory }}</h3>
+                <a class="ver-todo" href="#">Ver todo →</a>
+              </div>
+              <button class="close-btn" aria-label="Cerrar submenú" (click)="closeMenu()">×</button>
+            </div>
+            <p class="subtitle">Marca</p>
+            <div class="brands">
+              <div class="brand-item">
+                <img src="img/brands/samsung.png" alt="Samsung" /><span>Samsung</span>
+              </div>
+              <div class="brand-item"><img src="img/brands/lg.webp" alt="LG" /><span>LG</span></div>
+              <div class="brand-item">
+                <img src="img/brands/tcl.png" alt="TCL" /><span>TCL</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/brands/kalley.png" alt="Kalley" /><span>Kalley</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/brands/hyundai.webp" alt="Hyundai" /><span>Hyundai</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/brands/challenger.webp" alt="Challenger" /><span>Challenger</span>
+              </div>
+              <div class="brand-item">
+                <img src="img/brands/panasonic.webp" alt="Panasonnic" /><span>Panasonnic</span>
+              </div>
+            </div>
+            } @else {
+            <p class="subtitle">{{ selectedCategory }}</p>
+            <p>
+              Contenido para <strong>{{ selectedCategory }}</strong> próximamente.
+            </p>
+            }
           </div>
         </div>
       </li>

@@ -93,6 +93,10 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        div {
+          display: flex;
+        }
       }
 
       h3 {
@@ -102,7 +106,7 @@
       }
 
       .ver-todo {
-        color: #eb5b25;
+        color: #eb5b25 !important;
         font-weight: 600;
         margin-left: 12px;
       }
@@ -183,7 +187,7 @@
     }
 
     .ver-todo {
-      color: #eb5b25;
+      color: #eb5b25 !important;
       font-weight: 600;
       margin-left: 12px;
     }
@@ -284,9 +288,9 @@ body.catalog-menu-open {
 }
 
 /* visibility handled by .show class (opacity + pointer-events) */
-.dropdown-menu.show {
+.dropdown-menu.active {
   opacity: 1;
   transform: translateY(0) scale(1);
   pointer-events: auto;
-  display: flex;
+  display: flex !important;
 }
