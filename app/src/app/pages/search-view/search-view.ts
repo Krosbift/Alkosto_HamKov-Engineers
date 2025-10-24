@@ -44,10 +44,15 @@ export class SearchView {
 
   protected categoryFinded: number = 0;
   protected brandFinded: number = 0;
+  protected productName: string = '';
 
   refProductsFilter = httpResource<Product[]>(() => {
     let extraParams: string = '';
     let count: number = 0;
+
+    if (this.productName) {
+      return `${BASEURL}/products/search?productName=${this.productName}`;
+    }
 
     if (this.categoryFinded) {
       extraParams = extraParams.concat(`?idCategoria=${this.categoryFinded}`);
@@ -62,17 +67,21 @@ export class SearchView {
       count++;
     }
 
-    console.log(`${BASEURL}/products/filtered${extraParams}`);
     return `${BASEURL}/products/filtered${extraParams}`;
   });
 
-  productsFilter = computed<Product[]>(() => this.refProductsFilter.value() || []);
+  productsFilter = computed<Product[]>(() => {
+    const data = this.refProductsFilter.value() || [];
+    console.log(data);
+    return data;
+  });
 
   constructor(private readonly router: Router) {
     const navigation = this.router.currentNavigation();
     if (navigation?.extras?.state) {
       this.categoryFinded = navigation.extras.state['categoryId'] ?? 0;
       this.brandFinded = navigation.extras.state['brandId'] ?? 0;
+      this.productName = navigation.extras.state['productName'] ?? '';
     }
   }
 

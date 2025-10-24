@@ -78,6 +78,9 @@ export class ProductTypeOrm implements ProducRepository {
 
         return await queryRunner.manager
           .createQueryBuilder(Product, 'product')
+          .leftJoinAndSelect('product.categoria', 'categoria')
+          .leftJoinAndSelect('categoria.padre', 'padre')
+          .leftJoinAndSelect('product.marca', 'marca')
           .where('UPPER(product.nombre) LIKE :pattern', {
             pattern: `%${searchPattern}%`,
           })
