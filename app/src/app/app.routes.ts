@@ -9,6 +9,8 @@ import { HelpPage } from './pages/help-page/help-page';
 import { MyProfile } from './pages/my-profile/my-profile';
 import { UpdatePassword } from './pages/update-password/update-password';
 import { Login } from './pages/login/login';
+import { Catalog } from './pages/catalog/catalog';
+import { DetailsView } from './pages/details-view/details-view';
 
 export const routes: Routes = [
   {
@@ -46,5 +48,17 @@ export const routes: Routes = [
   {
     path: 'login/password',
     component: Login,
+  },
+  {
+    path: 'search-view',
+    component: SearchView,
+  },
+  {
+    path: 'catalog',
+    component: Catalog,
+  },
+  {
+    path: 'details-view',
+    component: DetailsView,
   },
 ];

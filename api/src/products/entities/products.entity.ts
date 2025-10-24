@@ -14,31 +14,30 @@ export class Product {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
   id: number;
 
-  @Column({ name: 'nombre', type: 'varchar', nullable: true })
-  nombre?: string | null;
+  @Column({ name: 'nombre', type: 'varchar' })
+  nombre: string;
 
-  @Column({ name: 'descripcion', type: 'varchar', nullable: true })
-  descripcion?: string | null;
+  @Column({ name: 'descripcion', type: 'varchar' })
+  descripcion: string;
 
-  @Column({ name: 'precio_base', type: 'numeric', nullable: true })
-  precioBase?: string | null;
+  @Column({ name: 'precio_base', type: 'numeric' })
+  precioBase: string;
 
-  @Column({ name: 'cantidad', type: 'integer', nullable: true })
-  cantidad?: number | null;
+  @Column({ name: 'cantidad', type: 'integer' })
+  cantidad: number;
 
-  @Column({ name: 'codigo', type: 'varchar', nullable: true })
-  codigo?: string | null;
+  @Column({ name: 'codigo', type: 'varchar' })
+  codigo: string;
 
-  @Column({ name: 'imagen', type: 'varchar', nullable: true })
-  imagen?: string | null;
+  @Column({ name: 'imagen', type: 'varchar' })
+  imagen: string;
 
   @Column({
     name: 'disponibilidad',
     type: 'boolean',
-    nullable: true,
     default: () => 'false',
   })
-  disponibilidad?: boolean | null;
+  disponibilidad: boolean;
 
   @Column({
     name: 'activo',
@@ -49,16 +48,16 @@ export class Product {
   activo?: boolean | null;
 
   @RelationId((product: Product) => product.categoria)
-  idCategoria?: number | null;
+  idCategoria: number;
 
-  @ManyToOne(() => Categoria, { nullable: true })
+  @ManyToOne(() => Categoria)
   @JoinColumn({ name: 'id_categoria' })
-  categoria?: Categoria | null;
+  categoria: Categoria;
 
   @RelationId((product: Product) => product.marca)
-  idMarca?: number | null;
+  idMarca: number;
 
-  @ManyToOne(() => Brand, { nullable: true })
+  @ManyToOne(() => Brand)
   @JoinColumn({ name: 'id_marca' })
-  marca?: Brand | null;
+  marca: Brand;
 }

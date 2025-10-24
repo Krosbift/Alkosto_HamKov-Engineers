@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
@@ -11,7 +12,7 @@ export class Catalog {
   protected menuOpen = false;
   protected selectedCategory: string = 'Celulares';
 
-  constructor() {}
+  constructor(private readonly router: Router) {}
 
   protected toggleMenu(event: Event): void {
     event.preventDefault();
@@ -28,5 +29,17 @@ export class Catalog {
 
   protected selectCategory(name: string): void {
     this.selectedCategory = name;
+  }
+
+  protected redirectToCategory(categoryId: number) {
+    this.router.navigate(['/search-view'], {
+      state: { categoryId: categoryId, userExists: false },
+    });
+  }
+
+  protected redirectToCategoryAndBrand(categoryId: number, brandId: number) {
+    this.router.navigate(['/search-view'], {
+      state: { categoryId: categoryId, brandId: brandId, userExists: false },
+    });
   }
 }

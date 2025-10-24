@@ -1,9 +1,4 @@
-import {
-  DataSource,
-  FindManyOptions,
-  Like,
-  QueryRunner,
-} from 'typeorm';
+import { DataSource, FindManyOptions, Like, QueryRunner } from 'typeorm';
 import { Brand } from '../entities/brands.entity';
 import { Categoria } from '../entities/category.entity';
 import { Product } from '../entities/products.entity';
@@ -29,6 +24,47 @@ export class ProductTypeOrm implements ProducRepository {
       });
     } catch (error) {
       throw new Error();
+    }
+  }
+
+  public async getAllProductsOrdered(
+    where: FindManyOptions<Product>,
+  ): Promise<Product[]> {
+    try {
+      return await this.performTransaction(async (queryRunner: QueryRunner) => {
+        return await queryRunner.manager.find(Product, {
+          ...where,
+          relations: {
+            categoria: {
+              padre: true,
+            },
+            marca: true,
+          },
+          order: {
+            categoria: 'ASC',
+          },
+        });
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async getProductById(id: number): Promise<Product | null> {
+    try {
+      return await this.performTransaction(async (queryRunner: QueryRunner) => {
+        return await queryRunner.manager.findOne(Product, {
+          where: { id },
+          relations: {
+            categoria: {
+              padre: true,
+            },
+            marca: true,
+          },
+        });
+      });
+    } catch (error) {
+      throw error;
     }
   }
 
