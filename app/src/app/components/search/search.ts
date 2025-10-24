@@ -72,16 +72,30 @@ export class Search {
 
   protected performSearchRedirect() {
     const q = this.searchQuery().trim();
+
+    // Navigate using queryParams so the URL changes and SearchView can react
     this.router.navigate(['/search-view'], {
-      state: { productName: q, userExists: false },
+      queryParams: { productName: q },
     });
+
     this.isOpen = false;
+    // Clear the search field after redirect (clean UX)
+    this.searchQuery.set('');
+    if (this.searchInputRef && this.searchInputRef.nativeElement) {
+      try {
+        this.searchInputRef.nativeElement.value = '';
+        this.searchInputRef.nativeElement.blur();
+      } catch (err) {
+        // ignore if native element not available
+      }
+    }
   }
 
   protected viewDetail(productId: number) {
     this.router.navigate(['/details-view'], {
       state: { productId: productId, userExists: false },
     });
+    this.isOpen = false;
   }
 
   @HostListener('document:click', ['$event'])

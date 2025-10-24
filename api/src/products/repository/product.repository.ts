@@ -14,4 +14,9 @@ export abstract class ProducRepository {
   abstract getAllCategories(
     where: FindManyOptions<Categoria>,
   ): Promise<Categoria[]>;
+  abstract getProtuctsByFilters(
+    marcasId?: number[],
+    priceRangue?: [number, number],
+    disponibility?: boolean,
+  ): Promise<Product[]>;
 }

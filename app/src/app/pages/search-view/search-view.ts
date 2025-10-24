@@ -1,7 +1,7 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { httpResource } from '@angular/common/http';
 import { BASEURL } from '../../core/http/url';
 import { Brand } from '../../types/brands';
@@ -44,14 +44,15 @@ export class SearchView {
 
   protected categoryFinded: number = 0;
   protected brandFinded: number = 0;
-  protected productName: string = '';
+  protected productName = signal('');
 
   refProductsFilter = httpResource<Product[]>(() => {
     let extraParams: string = '';
     let count: number = 0;
 
-    if (this.productName) {
-      return `${BASEURL}/products/search?productName=${this.productName}`;
+    // if a productName is present, use the search endpoint
+    if (this.productName()) {
+      return `${BASEURL}/products/search?productName=${encodeURIComponent(this.productName())}`;
     }
 
     if (this.categoryFinded) {
@@ -76,13 +77,20 @@ export class SearchView {
     return data;
   });
 
-  constructor(private readonly router: Router) {
+  constructor(private readonly router: Router, private readonly route: ActivatedRoute) {
     const navigation = this.router.currentNavigation();
     if (navigation?.extras?.state) {
       this.categoryFinded = navigation.extras.state['categoryId'] ?? 0;
       this.brandFinded = navigation.extras.state['brandId'] ?? 0;
-      this.productName = navigation.extras.state['productName'] ?? '';
+      const pn = navigation.extras.state['productName'] ?? '';
+      if (pn) this.productName.set(pn);
     }
+
+    // subscribe to query params so this view reacts when /search-view?productName=... is navigated to
+    this.route.queryParams.subscribe((params) => {
+      const q = (params['productName'] as string) || '';
+      this.productName.set(q);
+    });
   }
 
   protected filteredBrands(): string[] {
