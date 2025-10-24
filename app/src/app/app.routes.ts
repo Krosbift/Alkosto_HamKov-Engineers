@@ -6,18 +6,21 @@ import { Register } from './pages/register/register';
 import { EmailVerification } from './pages/email-verification/email-verification';
 import { SearchView } from './pages/search-view/search-view';
 import { HelpPage } from './pages/help-page/help-page';
+import { MyProfile } from './pages/my-profile/my-profile';
+import { UpdatePassword } from './pages/update-password/update-password';
+import { Login } from './pages/login/login';
 
 export const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: Home,
   },
   {
-    path: "nuestra-compañia/tiendas",
+    path: 'nuestra-compañia/tiendas',
     component: OurStores,
   },
   {
-    path: "login/options",
+    path: 'login/options',
     component: LoginOptions,
   },
   {
@@ -35,5 +38,17 @@ export const routes: Routes = [
   {
     path: 'help-page',
     component: HelpPage,
-  }
+  },
+  {
+    path: 'my-account/update-profile',
+    component: MyProfile,
+  },
+  {
+    path: 'my-account/update-password',
+    component: UpdatePassword,
+  },
+  {
+    path: 'login/password',
+    component: Login,
+  },
 ];

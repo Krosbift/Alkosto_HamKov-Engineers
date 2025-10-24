@@ -1,10 +1,10 @@
 import { Component, signal, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CodeAlert } from './components/code-alert/code-alert';
 import { Login as LoginService } from '../../services/login';
 
 @Component({
-  imports: [CodeAlert],
+  imports: [CodeAlert, RouterLink],
   selector: 'app-login-options',
   templateUrl: './login-options.html',
   styleUrl: './login-options.scss',

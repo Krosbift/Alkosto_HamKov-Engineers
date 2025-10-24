@@ -2,13 +2,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { Component, signal, effect } from '@angular/core';
 import { LoginState } from '../../services/login-state';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { MyAccount as MyAccountService } from '../../services/my-account';
 
 @Component({
   selector: 'app-my-account',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './my-account.html',
   styleUrl: './my-account.scss',
 })

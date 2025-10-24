@@ -2,6 +2,7 @@ import { DataSource, FindOptionsWhere, MoreThan, QueryRunner } from 'typeorm';
 import { AuthOptEntity } from '../entities/auth-opt.entity';
 import { AuthRepository } from './auth.repository';
 import { UsersEntity } from '../entities/users.entity';
+import { AuthProviderEntity } from '../entities/auth-provider.entity';
 
 export class AuthTypeorm implements AuthRepository {
   constructor(private readonly dataSource: DataSource) {}
@@ -20,7 +21,7 @@ export class AuthTypeorm implements AuthRepository {
         });
       });
     } catch (error) {
-      throw error;
+      throw new Error();
     }
   }
 
@@ -46,7 +47,7 @@ export class AuthTypeorm implements AuthRepository {
         });
       });
     } catch (error) {
-      throw error;
+      throw new Error();
     }
   }
 
@@ -57,6 +58,48 @@ export class AuthTypeorm implements AuthRepository {
       return await this.performTransaction(async (queryRunner: QueryRunner) => {
         return await queryRunner.manager.findOne(UsersEntity, {
           where,
+        });
+      });
+    } catch (error) {
+      throw new Error();
+    }
+  }
+
+  public async createAuthMethod(
+    entity: Omit<AuthProviderEntity, 'id' | 'activo' | 'usuario'>,
+  ): Promise<AuthProviderEntity | null> {
+    try {
+      return await this.performTransaction(async (queryRunner: QueryRunner) => {
+        return await queryRunner.manager.save(AuthProviderEntity, entity);
+      });
+    } catch (error) {
+      throw new Error();
+    }
+  }
+
+  public async findPassword(
+    where: FindOptionsWhere<AuthProviderEntity>,
+  ): Promise<AuthProviderEntity | null> {
+    try {
+      return await this.performTransaction(async (queryRunner: QueryRunner) => {
+        return await queryRunner.manager.findOne(AuthProviderEntity, {
+          where,
+        });
+      });
+    } catch (error) {
+      throw new Error();
+    }
+  }
+
+  public async updateAuthMethod(
+    id: number,
+    entity: Partial<AuthProviderEntity>,
+  ): Promise<AuthProviderEntity | null> {
+    try {
+      return await this.performTransaction(async (queryRunner: QueryRunner) => {
+        await queryRunner.manager.update(AuthProviderEntity, id, entity);
+        return await queryRunner.manager.findOne(AuthProviderEntity, {
+          where: { id },
         });
       });
     } catch (error) {
@@ -78,7 +121,7 @@ export class AuthTypeorm implements AuthRepository {
       return result;
     } catch (error) {
       await queryRunner.rollbackTransaction();
-      throw error;
+      throw new Error();
     } finally {
       await queryRunner.release();
     }

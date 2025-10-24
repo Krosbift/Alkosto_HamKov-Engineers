@@ -24,8 +24,12 @@ export class AuthController {
   }
 
   @Post('change-password')
-  changePassword(@Body() body: ChangePasswordDto) {}
+  changePassword(@Body() body: ChangePasswordDto) {
+    return this.service.changePassword(body.email, body.newPassword);
+  }
 
   @Post('login-password')
-  loginPassword(@Body() body: LoginPasswordDto) {}
+  loginPassword(@Body() body: LoginPasswordDto) {
+    return this.service.loginPassword(body.email, body.password);
+  }
 }

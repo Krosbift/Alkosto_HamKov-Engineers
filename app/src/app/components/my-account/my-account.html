@@ -1,12 +1,12 @@
 <div class="account" (click)="openOrCloseMenu()">
   <img src="/account.svg" />
-  <span>Mi cuenta</span>
+  <span>{{ loginState.isLoggedIn() ? loginState.displayName() : 'Mi cuenta' }}</span>
 </div>
 
 <div class="triangle" [class.active]="stateMenu"></div>
 <div class="menu" [class.active]="stateMenu">
   @if (loginState.isLoggedIn()) {
-  <div class="account-logged">
+  <div class="account-logged" (click)="closeMenu()">
     <div class="user-header">
       <h3>Bienvenido/{{ loginState.displayName() }}</h3>
       <a class="logout-link" (click)="logout()">
@@ -51,7 +51,7 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <a routerLink="my-account/update-profile">
           <i class="icon profile-icon">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <g
