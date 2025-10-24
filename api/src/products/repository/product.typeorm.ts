@@ -72,14 +72,16 @@ export class ProductTypeOrm implements ProducRepository {
     try {
       return await this.performTransaction(async (queryRunner: QueryRunner) => {
         const searchPattern = productName
-          .replace(/[aeiouáéíóúAEIOUÁÉÍÓÚ]/g, '_')
+          .toUpperCase()
+          .replace(/[AEIOUÁÉÍÓÚ]/g, '_')
           .trim();
 
-        return await queryRunner.manager.find(Product, {
-          where: {
-            nombre: Like(`%${searchPattern}%`),
-          },
-        });
+        return await queryRunner.manager
+          .createQueryBuilder(Product, 'product')
+          .where('UPPER(product.nombre) LIKE :pattern', {
+            pattern: `%${searchPattern}%`,
+          })
+          .getMany();
       });
     } catch (error) {
       throw new Error();
