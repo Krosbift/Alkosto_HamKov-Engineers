@@ -6,12 +6,21 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-search-view',
   imports: [CommonModule, FormsModule],
   templateUrl: './search-view.html',
-  styleUrl: './search-view.scss'
+  styleUrl: './search-view.scss',
 })
 export class SearchView {
   protected brandQuery: string = '';
   protected brands: string[] = [
-    'APPLE', 'ARGOM', 'BACKBONE', 'BELKIN', 'DJI', 'HONOR', 'HUAWEI', 'I2GO', 'INFINIX', 'KALLEY'
+    'APPLE',
+    'ARGOM',
+    'BACKBONE',
+    'BELKIN',
+    'DJI',
+    'HONOR',
+    'HUAWEI',
+    'I2GO',
+    'INFINIX',
+    'KALLEY',
   ];
   protected selectedBrands = new Set<string>();
   protected brandsCount: Record<string, number> = {
@@ -24,7 +33,7 @@ export class SearchView {
     HUAWEI: 16,
     I2GO: 5,
     INFINIX: 11,
-    KALLEY: 12
+    KALLEY: 12,
   };
 
   protected visibleCount = 25;

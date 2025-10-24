@@ -1,120 +1,118 @@
 <section class="search-view">
-	<div class="search-view__container">
-		<aside class="filters" aria-label="Filtros">
-			<h3>Filtrar por:</h3>
+  <div class="search-view__container">
+    <aside class="filters" aria-label="Filtros">
+      <h3>Filtrar por:</h3>
 
-			<div class="filter-group">
-				<h4>Categorías</h4>
-				<ul class="categories">
-					<li>Accesorios de Electrónica</li>
-					<li>Celulares</li>
-					<li>Juguetes</li>
-				</ul>
-			</div>
+      <div class="filter-group">
+        <h4>Categorías</h4>
+        <ul class="categories">
+          <li>Accesorios de Electrónica</li>
+          <li>Celulares</li>
+          <li>Juguetes</li>
+        </ul>
+      </div>
 
-			<div class="filter-group">
-				<h4>Marca</h4>
-				<input
-					type="text"
-					placeholder="Buscar por marca"
-					[(ngModel)]="brandQuery"
-					class="brand-search"
-				/>
-				<ul class="brands">
-					<li *ngFor="let b of filteredBrands()">
-						<label><input type="checkbox" [value]="b" (change)="toggleBrand(b, $event)" /> {{ b }}</label>
-						<span class="count">({{ brandsCount[b] || 0 }})</span>
-					</li>
-				</ul>
-				<a class="see-more" href="#">Ver más</a>
-			</div>
-		</aside>
+      <div class="filter-group">
+        <h4>Marca</h4>
+        <input
+          type="text"
+          placeholder="Buscar por marca"
+          [(ngModel)]="brandQuery"
+          class="brand-search"
+        />
+        <ul class="brands">
+          <li *ngFor="let b of filteredBrands()">
+            <label
+              ><input type="checkbox" [value]="b" (change)="toggleBrand(b, $event)" />
+              {{ b }}</label
+            >
+            <span class="count">({{ brandsCount[b] || 0 }})</span>
+          </li>
+        </ul>
+        <a class="see-more" href="#">Ver más</a>
+      </div>
+    </aside>
 
-		<main class="results">
-			<header class="results__header">
-				<div class="results__left">
-					<h2>Mostrando {{ visibleCount }} de {{ totalCount }} resultados en tu búsqueda "{{ query }}"</h2>
-				</div>
-				<div class="results__right">
-					<label for="sort">Ordenar por</label>
-					<select id="sort" [(ngModel)]="sortBy">
-						<option value="relevance">Relevancia</option>
-						<option value="price-asc">Precio: menor a mayor</option>
-						<option value="price-desc">Precio: mayor a menor</option>
-					</select>
-				</div>
-			</header>
+    <div class="results">
+      <header class="results__header">
+        <div class="results__left">
+          <h2>
+            Mostrando {{ visibleCount }} de {{ totalCount }} resultados en tu búsqueda "{{ query }}"
+          </h2>
+        </div>
+        <div class="results__right">
+          <label for="sort">Ordenar por</label>
+          <select id="sort" [(ngModel)]="sortBy">
+            <option value="relevance">Relevancia</option>
+            <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
+          </select>
+        </div>
+      </header>
 
-					<section class="hero-banner" aria-hidden="false">
-						<div class="hero-left">
-							<div class="hero-left__inner">
-								<div class="tag">MOTOROLA</div>
-								<h3>Celular Edge 50 Fusion 256GB 5G Azul</h3>
-							</div>
-						</div>
+      <section class="hero-banner" aria-hidden="false">
+        <div class="hero-left">
+          <div class="hero-left__inner">
+            <div class="tag">MOTOROLA</div>
+            <h3>Celular Edge 50 Fusion 256GB 5G Azul</h3>
+          </div>
+        </div>
 
-						<div class="hero-center">
-							<div class="price-bubble">
-								<small class="before">$2.299.050 Antes</small>
-								<span class="now">$949.050</span>
-							</div>
-							<div class="phone-image">
-								<img src="/img/publi.png" alt="Celular" />
-							</div>
-						</div>
+        <div class="hero-center">
+          <div class="price-bubble">
+            <small class="before">$2.299.050 Antes</small>
+            <span class="now">$949.050</span>
+          </div>
+          <div class="phone-image">
+            <img src="/img/publi.png" alt="Celular" />
+          </div>
+        </div>
 
-										<div class="hero-right">
-											<div class="ad-overlay">Especial de Computadores y Celulares</div>
-											<div class="discount-badge">58%<span>DESCUENTO</span></div>
-											<div class="cta">
-												<button class="btn-more">Ver más</button>
-											</div>
-										</div>
-					</section>
+        <div class="hero-right">
+          <div class="ad-overlay">Especial de Computadores y Celulares</div>
+          <div class="discount-badge">58%<span>DESCUENTO</span></div>
+          <div class="cta">
+            <button class="btn-more">Ver más</button>
+          </div>
+        </div>
+      </section>
 
-			<section class="product-list-placeholder">
-				<!-- Tarjeta de producto: se mantiene el banner de descuento intacto -->
-				<div class="product-card detailed">
-					<div class="product-card__left">
-						<div class="brand-tag">HONOR</div>
-						<div class="product-card__media">
-							<img src="/img/cel_honor.png" alt="Honor X8c" />
-						</div>
-						<div class="product-links">
-							<label><input type="checkbox" /> Comparar</label>
-							<button class="fav">♡ Favoritos</button>
-						</div>
-					</div>
-					<div class="product-card__center">
-						<h4 class="product-title">Celular HONOR X8c 512GB 4G Púrpura</h4>
-						<p class="rating">4.9 <span class="stars">★★★★★</span> <small>(18)</small></p>
-						<ul class="product-specs">
-							<li><strong>Capacidad de la Bateria</strong><span class="spec-value">5000 mAh</span></li>
-							<li><strong>Resolucion Camara Posterior 1</strong><span class="spec-value">108 Mpx</span></li>
-							<li><strong>Tamaño Pantalla</strong><span class="spec-value">6.7 Pulgadas</span></li>
-							<li><strong>Memoria Interna</strong><span class="spec-value">512 GB</span></li>
-							<li><strong>Memoria RAM</strong><span class="spec-value">8 GB</span></li>
-						</ul>
-						<a class="more-details" href="#">Ver más detalles</a>
-					</div>
-					<div class="product-card__right">
-						<div class="service-badges">
-							<span class="badge purple">Seguro Gratis</span>
-							<span class="badge red">0% Interés Davivienda</span>
-						</div>
-						<div class="price-block">
-							<span class="old-price">$2.299.050</span>
-							<div class="price-bar">
-								<div class="price-bar__fill"></div>
-								<div class="discount-pill">-52%</div>
-							</div>
-							<div class="final-price">$1.094.050 <small>Hoy</small></div>
-						</div>
-						<button class="cart-btn"><img src="/img/carrito_cat.png" alt="carrito"/></button>
-					</div>
-					<div style="clear:both"></div>
-				</div>
-			</section>
-		</main>
-	</div>
+      <section class="product-list-placeholder">
+
+        <div class="x"> <!-- TODO: CARD LARGA DE PRODUCTO -->
+          <div class="y">
+            <h4 class="product-title">Celular HONOR X8c 512GB 4G Púrpura</h4>
+            <p class="rating">4.9 <span class="stars">★★★★★</span> <small>(18)</small></p>
+          </div>
+          <div>
+            <div class="product-card detailed">
+              <div class="product-card__left">
+                <div class="brand-tag">HONOR</div>
+                <div class="product-card__media">
+                  <img src="/img/cel_honor.png" alt="Honor X8c" />
+                </div>
+              </div>
+              <div class="product-card__center">
+                <p class="product-specs">
+                  Capacidad de la Bateria 5000 mAh. Resolucion Camara Posterior 1 108 Mpx. Tamaño Pantalla 6.7 Pulgadas. Memoria Interna 512 GB. Memoria RAM 8 GB.
+                </p>
+                <a class="more-details" href="#">Ver más detalles</a>
+              </div>
+              <div class="product-card__right">
+                <div class="service-badges">
+                  <span class="badge purple">Seguro Gratis</span>
+                  <span class="badge red">0% Interés Davivienda</span>
+                </div>
+                <div class="price-block">
+                  <div class="final-price">$1.094.050 <small>Hoy</small></div>
+                </div>
+                <button class="cart-btn"><img src="/img/carrito_cat.png" alt="carrito" /></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </div>
 </section>

@@ -1,3 +1,45 @@
+.category-banner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(90deg, #004797 0%, #004797 100%);
+  padding: 14px 0;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.04);
+  width: 1440px;
+  margin-bottom: 25px;
+}
+.category-inner {
+  width: 100%;
+  max-width: 1158px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+}
+.category-label {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.category-name {
+  margin: 0;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.category-name .sep {
+  color: #eb5b25;
+  margin: 0 6px;
+}
+.category-banner {
+  border-bottom: 4px solid #eb5b25;
+  width: 100%;
+}
+
 .x {
   border-radius: 10px;
   border: 1px solid #004797;

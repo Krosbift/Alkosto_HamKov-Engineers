@@ -16,12 +16,24 @@ export class Search {
     'Electrodomésticos',
     'Ofertas del día',
   ];
-  popular: string[] = ['lavadoras','celulares','televisores','tablet','estufas','licuadoras','ventiladores','cafeteras','computadores','audifonos'];
+  popular: string[] = [
+    'Celulares',
+    'Televisores',
+    'Portátiles',
+  ];
 
   recent = [
     { image: '/img/product1.jpg', title: 'Parlante CHALLENGER SC5 Negro', price: '$119.030' },
-    { image: '/img/product2.jpg', title: 'Celular SAMSUNG Galaxy A16 128GB LTE 4G Verde', price: '$539.050' },
-    { image: '/img/product3.jpg', title: 'Celular REDMI Note 14 256GB 4G Azul + Audífonos', price: '$949.050' },
+    {
+      image: '/img/product2.jpg',
+      title: 'Celular SAMSUNG Galaxy A16 128GB LTE 4G Verde',
+      price: '$539.050',
+    },
+    {
+      image: '/img/product3.jpg',
+      title: 'Celular REDMI Note 14 256GB 4G Azul + Audífonos',
+      price: '$949.050',
+    },
   ];
 
   @ViewChild('searchInput', { static: false }) searchInputRef!: ElementRef<HTMLInputElement>;
@@ -42,7 +54,6 @@ export class Search {
     // behave like selecting a suggestion
     this.selectSuggestion(p);
   }
-
 
   @HostListener('document:click', ['$event'])
   handleDocumentClick(event: Event) {
