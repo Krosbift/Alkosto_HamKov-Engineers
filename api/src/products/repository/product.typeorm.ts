@@ -113,6 +113,42 @@ export class ProductTypeOrm implements ProducRepository {
     }
   }
 
+  public async getProtuctsByFilters(
+    marcasId?: number[],
+    priceRangue?: [number, number],
+    disponibility?: boolean,
+  ): Promise<Product[]> {
+    try {
+      return await this.performTransaction(async (queryRunner: QueryRunner) => {
+        const qb = queryRunner.manager
+          .createQueryBuilder(Product, 'product')
+          .leftJoinAndSelect('product.categoria', 'categoria')
+          .leftJoinAndSelect('categoria.padre', 'padre')
+          .leftJoinAndSelect('product.marca', 'marca');
+
+        if (marcasId && marcasId.length > 0) {
+          qb.andWhere('marca.id IN (:...marcasId)', { marcasId });
+        }
+
+        if (priceRangue && priceRangue.length === 2) {
+          let [min, max] = priceRangue;
+          if (min > max) [min, max] = [max, min];
+          qb.andWhere('product.precioBase BETWEEN :min AND :max', { min, max });
+        }
+
+        if (typeof disponibility === 'boolean') {
+          qb.andWhere('product.disponibilidad = :disponibility', {
+            disponibility,
+          });
+        }
+
+        return await qb.getMany();
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   private async performTransaction<T>(
     work: (queryRunner: QueryRunner) => Promise<T>,
   ): Promise<T> {

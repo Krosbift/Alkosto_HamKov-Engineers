@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ProducRepository } from './repository/product.repository';
 import { FindProductsDto } from './dtos/find-products.dto';
+import { FindSearchDto } from './dtos/find-search.dto';
 
 @Injectable()
 export class ProductsService {
@@ -105,7 +106,26 @@ export class ProductsService {
   public async getBrand() {
     return await this.repository.getAllBrands({});
   }
+
   public async getCategories() {
     return await this.repository.getAllCategories({});
+  }
+
+  public async getFiltersSpecial(where: FindSearchDto) {
+    const minPrice = where.minPrice ?? 0;
+    const maxPrice = where.maxPrice ?? Number.MAX_SAFE_INTEGER;
+
+    const brandParam =
+      where.idMarca === undefined
+        ? undefined
+        : Array.isArray(where.idMarca)
+          ? where.idMarca
+          : [where.idMarca];
+
+    return await this.repository.getProtuctsByFilters(
+      brandParam,
+      [minPrice, maxPrice],
+      where.disponibilidad,
+    );
   }
 }

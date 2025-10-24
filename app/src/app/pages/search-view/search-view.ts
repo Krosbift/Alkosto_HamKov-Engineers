@@ -23,7 +23,8 @@ export class SearchView {
     () => this.refBrands.value()?.map((res) => res.nombre) || []
   );
 
-  protected selectedBrands = new Set<string>();
+  // use a signal for selected brand ids so httpResource re-evaluates when selection changes
+  protected selectedBrands = signal<number[]>([]);
   protected brandsCount: Record<string, number> = {
     APPLE: 137,
     ARGOM: 2,
@@ -46,14 +47,53 @@ export class SearchView {
   protected brandFinded: number = 0;
   protected productName = signal('');
 
-  refProductsFilter = httpResource<Product[]>(() => {
-    let extraParams: string = '';
-    let count: number = 0;
+  // additional filters
+  protected disponibilidad = signal<boolean>(false);
+  // price range key like '0-500000', '500001-1000000', '5000001-inf'
+  protected selectedPriceRange = signal<string>('');
 
-    // if a productName is present, use the search endpoint
+  // computed list of brands (objects) from refBrands
+  protected brandsList = computed<Brand[]>(() => this.refBrands.value() || []);
+
+  refProductsFilter = httpResource<Product[]>(() => {
+    // if there are additional filters (disponibilidad, selectedBrands, price range), call filters-additionals
+    const disponibilidad = this.disponibilidad();
+    const brands = this.selectedBrands();
+    const priceRangeKey = this.selectedPriceRange();
+
+    // build params for filters-additionals when any additional filter exists
+    if (disponibilidad || (brands && brands.length > 0) || priceRangeKey) {
+      const params: string[] = [];
+      if (disponibilidad) params.push(`disponibilidad=true`);
+      // add brand ids
+      if (brands && brands.length > 0) {
+        for (const id of brands) params.push(`idMarca=${id}`);
+      }
+
+      // parse priceRangeKey to min/max
+      if (priceRangeKey) {
+        const parts = priceRangeKey.split('-');
+        const min = parts[0] === '0' ? 0 : parseInt(parts[0], 10);
+        const max = parts[1] && parts[1] !== 'inf' ? parseInt(parts[1], 10) : undefined;
+        if (!isNaN(min)) params.push(`minPrice=${min}`);
+        if (max !== undefined && !isNaN(max)) params.push(`maxPrice=${max}`);
+      }
+
+      // if productName present also include it
+      if (this.productName()) params.push(`productName=${encodeURIComponent(this.productName())}`);
+
+      const query = params.join('&');
+      return `${BASEURL}/products/filters-additionals?${query}`;
+    }
+
+    // fallback: if a productName is present, use the search endpoint
     if (this.productName()) {
       return `${BASEURL}/products/search?productName=${encodeURIComponent(this.productName())}`;
     }
+
+    // fallback to filtered by category/brand (original behavior)
+    let extraParams: string = '';
+    let count: number = 0;
 
     if (this.categoryFinded) {
       extraParams = extraParams.concat(`?idCategoria=${this.categoryFinded}`);
@@ -93,17 +133,35 @@ export class SearchView {
     });
   }
 
-  protected filteredBrands(): string[] {
+  protected filteredBrands(): Brand[] {
     const q = this.brandQuery.trim().toLowerCase();
-    if (!q) return this.brands();
-    return this.brands().filter((b) => b.toLowerCase().includes(q));
+    const list = this.brandsList();
+    if (!q) return list;
+    return list.filter((b) => b.nombre.toLowerCase().includes(q));
   }
 
-  protected toggleBrand(brand: string, event: Event) {
+  protected toggleBrand(brandId: number, event: Event) {
     const checked = (event.target as HTMLInputElement).checked;
-    if (checked) this.selectedBrands.add(brand);
-    else this.selectedBrands.delete(brand);
-    // En una implementación real, aquí dispararíamos la recarga de resultados
+    const current = this.selectedBrands();
+    if (checked) {
+      if (!current.includes(brandId)) this.selectedBrands.set([...current, brandId]);
+    } else {
+      this.selectedBrands.set(current.filter((x) => x !== brandId));
+    }
+    // httpResource will pick up the change because selectedBrands is a signal
+  }
+
+  protected isBrandSelected(id: number) {
+    return this.selectedBrands().includes(id);
+  }
+
+  protected toggleDisponibilidad(event: Event) {
+    const checked = (event.target as HTMLInputElement).checked;
+    this.disponibilidad.set(checked);
+  }
+
+  protected selectPriceRange(rangeKey: string) {
+    this.selectedPriceRange.set(rangeKey);
   }
 
   protected viewDetail(productId: number) {

@@ -2,6 +2,7 @@ import { Controller, Get, Param, Query, ParseIntPipe } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { SearchProductDto } from './dtos/search.products.dto';
 import { FindProductsDto } from './dtos/find-products.dto';
+import { FindSearchDto } from './dtos/find-search.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -40,5 +41,10 @@ export class ProductsController {
   @Get('brands')
   public async getAllBrands() {
     return await this.service.getBrand();
+  }
+
+  @Get('filters-additionals')
+  public async getFiltersAditionals(@Query() query: FindSearchDto) {
+    return await this.service.getFiltersSpecial(query);
   }
 }

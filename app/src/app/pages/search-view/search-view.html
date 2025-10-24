@@ -23,15 +23,93 @@
         <ul class="brands">
           @for (b of filteredBrands(); track $index) {
           <li>
-            <label
-              ><input type="checkbox" [value]="b" (change)="toggleBrand(b, $event)" />
-              {{ b }}</label
+            <label>
+              <input
+                type="checkbox"
+                [value]="b.id"
+                (change)="toggleBrand(b.id, $event)"
+                [checked]="isBrandSelected(b.id)"
+              />
+              {{ b.nombre }}</label
             >
-            <span class="count">({{ brandsCount[b] || 0 }})</span>
+            <span class="count">({{ brandsCount[b.nombre.toUpperCase()] || 0 }})</span>
           </li>
           }
         </ul>
         <a class="see-more" href="#">Ver más</a>
+      </div>
+
+      <div class="filter-group">
+        <h4>Disponibilidad</h4>
+        <label
+          ><input
+            type="checkbox"
+            (change)="toggleDisponibilidad($event)"
+            [checked]="disponibilidad()"
+          />
+          Disponible</label
+        >
+      </div>
+
+      <div class="filter-group">
+        <h4>Rango de precio</h4>
+        <ul class="price-ranges">
+          <li>
+            <label
+              ><input
+                type="radio"
+                name="price"
+                (change)="selectPriceRange('0-500000')"
+                [checked]="selectedPriceRange() === '0-500000'"
+              />
+              0 - 500.000</label
+            >
+          </li>
+          <li>
+            <label
+              ><input
+                type="radio"
+                name="price"
+                (change)="selectPriceRange('500001-1000000')"
+                [checked]="selectedPriceRange() === '500001-1000000'"
+              />
+              500.001 - 1.000.000</label
+            >
+          </li>
+          <li>
+            <label
+              ><input
+                type="radio"
+                name="price"
+                (change)="selectPriceRange('1000001-2000000')"
+                [checked]="selectedPriceRange() === '1000001-2000000'"
+              />
+              1.000.001 - 2.000.000</label
+            >
+          </li>
+          <li>
+            <label
+              ><input
+                type="radio"
+                name="price"
+                (change)="selectPriceRange('2000001-5000000')"
+                [checked]="selectedPriceRange() === '2000001-5000000'"
+              />
+              2.000.001 - 5.000.000</label
+            >
+          </li>
+          <li>
+            <label
+              ><input
+                type="radio"
+                name="price"
+                (change)="selectPriceRange('5000001-inf')"
+                [checked]="selectedPriceRange() === '5000001-inf'"
+              />
+              5.000.001 - ∞</label
+            >
+          </li>
+        </ul>
       </div>
     </aside>
 

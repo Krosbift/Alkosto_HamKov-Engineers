@@ -35,11 +35,13 @@ export class Catalog {
     this.router.navigate(['/search-view'], {
       state: { categoryId: categoryId, userExists: false },
     });
+    this.closeMenu();
   }
 
   protected redirectToCategoryAndBrand(categoryId: number, brandId: number) {
     this.router.navigate(['/search-view'], {
       state: { categoryId: categoryId, brandId: brandId, userExists: false },
     });
+    this.closeMenu();
   }
 }
