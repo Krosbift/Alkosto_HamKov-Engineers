@@ -57,6 +57,7 @@ export class Register {
 
     const value = this.registerForm.value;
     const user: UserBaseInfo = {
+      id: 0,
       nombre: value.firstName,
       apellido: value.lastName,
       email: this.email,
@@ -66,6 +67,7 @@ export class Register {
     this.myRegisterService.UserBaseInfo(user).subscribe({
       next: (res: UserBaseInfo) => {
         this.loginState.setLoggedIn({
+          id: res.id,
           nombre: res.nombre,
           email: res.email,
           telefono: res.telefono,

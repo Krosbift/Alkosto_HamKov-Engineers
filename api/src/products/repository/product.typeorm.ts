@@ -23,7 +23,7 @@ export class ProductTypeOrm implements ProducRepository {
         });
       });
     } catch (error) {
-      throw new Error();
+      throw error;
     }
   }
 

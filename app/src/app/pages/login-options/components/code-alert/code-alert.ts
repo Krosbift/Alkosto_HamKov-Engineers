@@ -97,6 +97,7 @@ export class CodeAlert {
           next: (res) => {
             if (res) {
               this.loginState.setLoggedIn({
+                id: Number(localStorage.getItem('id')) || 0,
                 nombre: localStorage.getItem('userName') || '',
                 email: localStorage.getItem('userEmail') || '',
                 telefono: localStorage.getItem('userPhoneNumber') || '',

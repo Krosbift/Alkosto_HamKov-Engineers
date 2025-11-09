@@ -25,15 +25,15 @@
 <div class="content">
   @if (refResource.value()) { @for (item of productsData(); track $index) {
 
-  <a class="x" (click)="viewDetail(item.id)">
+  <a class="x">
     <div class="product-card detailed">
-      <div class="product-card__left">
+      <div class="product-card__left" (click)="viewDetail(item.id)">
         <div class="brand-tag">{{ item.marca.nombre }}</div>
         <div class="product-card__media">
           <img [src]="item.imagen" [alt]="item.marca.nombre" />
         </div>
       </div>
-      <div class="y">
+      <div class="y" (click)="viewDetail(item.id)">
         <h4 class="product-title">{{ item.nombre }}</h4>
         <p class="rating">4.9 <span class="stars">★★★★★</span> <small>(18)</small></p>
       </div>
@@ -43,7 +43,9 @@
             {{ item.precioBase | currency : 'COP' : 'symbol' : '1.0-0' }}
           </div>
         </div>
-        <button class="cart-btn"><img src="/img/carrito_cat.png" alt="carrito" /></button>
+        <button class="cart-btn">
+          <img src="/img/carrito_cat.png" alt="carrito" (click)="addProductToCard(item)" />
+        </button>
       </div>
     </div>
   </a>

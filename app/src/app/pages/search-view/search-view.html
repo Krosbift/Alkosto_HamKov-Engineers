@@ -187,7 +187,7 @@
           </div>
         </div>
         } @if (refProductsFilter.value()) { @for (item of productsFilter(); track $index) {
-        <div class="x" (click)="viewDetail(item.id)">
+        <div class="x">
           <div class="y">
             <h4 class="product-title">{{ item.nombre }}</h4>
             <p class="rating">4.9 <span class="stars">★★★★★</span> <small>(18)</small></p>
@@ -200,7 +200,7 @@
                   <img [src]="item.imagen" [alt]="item.marca.nombre" />
                 </div>
               </div>
-              <div class="product-card__center">
+              <div class="product-card__center" (click)="viewDetail(item.id)">
                 <p class="product-specs">
                   {{ item.descripcion }}
                 </p>
@@ -217,7 +217,9 @@
                     <small>Hoy</small>
                   </div>
                 </div>
-                <button class="cart-btn"><img src="/img/carrito_cat.png" alt="carrito" /></button>
+                <button (click)="addToCart(item)" class="cart-btn">
+                  <img src="/img/carrito_cat.png" alt="carrito" />
+                </button>
               </div>
             </div>
           </div>

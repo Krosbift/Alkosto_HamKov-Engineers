@@ -58,9 +58,7 @@
   <aside class="product-detail__card">
     <div class="price-row__current">
       <span class="price-row__currency">$</span>
-      <span class="price-row__amount">{{
-        productData()?.precioBase | currency : 'COP' : 'symbol' : '1.0-0'
-      }}</span>
+      <span class="price-row__amount">{{ price() | currency : 'COP' : 'symbol' : '1.0-0' }}</span>
       <small class="price-row__today">Hoy</small>
     </div>
 

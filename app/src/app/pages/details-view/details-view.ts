@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { httpResource } from '@angular/common/http';
 import { Product } from '../../types/products';
 import { BASEURL } from '../../core/http/url';
+import { ShoppingCart as ShoppingCartService } from '../../services/shopping-cart';
 
 @Component({
   selector: 'app-details-view',
@@ -24,7 +25,7 @@ export class DetailsView {
 
   productData = computed<Product | null>(() => this.refProductData.value() || null);
 
-  constructor(private readonly router: Router) {
+  constructor(private readonly router: Router, public readonly shoppingCart: ShoppingCartService) {
     const navigation = this.router.currentNavigation();
     if (navigation?.extras?.state) {
       this.productId = navigation.extras.state['productId'] ?? 0;
@@ -48,9 +49,22 @@ export class DetailsView {
   protected selectedCapacity = signal('512 GB');
   protected selectedColor = signal('purpura');
 
-  protected quantity = signal<number>(3);
+  protected quantity = signal<number>(1);
 
   protected availableStock = computed<number>(() => this.productData()?.cantidad || 0);
+
+  protected price = computed<number>((): number => {
+    const data = this.productData();
+    if (!data || !data.cantidad) {
+      return 0;
+    }
+    const cantidad = this.quantity();
+    if (!cantidad) {
+      return data.precioBase;
+    }
+
+    return data.precioBase * cantidad;
+  });
 
   protected selectImage(src: string) {
     this.mainImage.set(src);
@@ -79,6 +93,18 @@ export class DetailsView {
   }
 
   protected addToCart() {
-    alert('Producto añadido al carrito (simulado)');
+    const item = this.productData();
+    if (!item || !item.id) {
+      return;
+    }
+
+    this.shoppingCart.addProduct(Number(localStorage.getItem('id')), item.id, 1).subscribe({
+      next: () => {
+        this.shoppingCart.refreshCount(Number(localStorage.getItem('id')));
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
 }

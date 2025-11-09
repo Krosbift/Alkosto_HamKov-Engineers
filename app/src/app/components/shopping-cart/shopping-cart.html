@@ -1,4 +1,7 @@
-<div class="cart">
-  <img src="/cart.svg">
+<div routerLink="/shopping-cart" class="cart">
+  @if (count() > 0) {
+    <div class="popup"><span>{{ count() }}</span></div>
+  }
+  <img src="/cart.svg" />
   <span>Mi carrito</span>
 </div>

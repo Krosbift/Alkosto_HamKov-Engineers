@@ -6,6 +6,7 @@ import { httpResource } from '@angular/common/http';
 import { BASEURL } from '../../core/http/url';
 import { Brand } from '../../types/brands';
 import { Product } from '../../types/products';
+import { ShoppingCart as ShoppingCartService } from '../../services/shopping-cart';
 
 @Component({
   selector: 'app-search-view',
@@ -113,11 +114,14 @@ export class SearchView {
 
   productsFilter = computed<Product[]>(() => {
     const data = this.refProductsFilter.value() || [];
-    console.log(data);
     return data;
   });
 
-  constructor(private readonly router: Router, private readonly route: ActivatedRoute) {
+  constructor(
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
+    public readonly shoppingCart: ShoppingCartService
+  ) {
     const navigation = this.router.currentNavigation();
     if (navigation?.extras?.state) {
       this.categoryFinded = navigation.extras.state['categoryId'] ?? 0;
@@ -167,6 +171,17 @@ export class SearchView {
   protected viewDetail(productId: number) {
     this.router.navigate(['/details-view'], {
       state: { productId: productId, userExists: false },
+    });
+  }
+
+  protected addToCart(item: Product) {
+    this.shoppingCart.addProduct(Number(localStorage.getItem('id')), item.id, 1).subscribe({
+      next: () => {
+        this.shoppingCart.refreshCount(Number(localStorage.getItem('id')));
+      },
+      error: (err) => {
+        console.error(err);
+      },
     });
   }
 }

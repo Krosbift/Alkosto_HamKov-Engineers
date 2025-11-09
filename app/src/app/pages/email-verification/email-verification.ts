@@ -49,6 +49,7 @@ export class EmailVerification {
       this.myAccountService.findUserByEmail(email).subscribe({
         next: (res) => {
           if (res) {
+            localStorage.setItem('id', String(res.id)),
             localStorage.setItem('userName', res.nombre);
             localStorage.setItem('userLastName', res.apellido);
             localStorage.setItem('userEmail', res.email);

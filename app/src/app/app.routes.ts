@@ -11,6 +11,7 @@ import { UpdatePassword } from './pages/update-password/update-password';
 import { Login } from './pages/login/login';
 import { Catalog } from './pages/catalog/catalog';
 import { DetailsView } from './pages/details-view/details-view';
+import { ShoppingCart } from './pages/shopping-cart/shopping-cart';
 
 export const routes: Routes = [
   {
@@ -60,5 +61,9 @@ export const routes: Routes = [
   {
     path: 'details-view',
     component: DetailsView,
+  },
+  {
+    path: 'shopping-cart',
+    component: ShoppingCart,
   },
 ];

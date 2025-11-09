@@ -10,6 +10,9 @@ export class LoginState {
   public readonly displayName = computed(() => this.userName() || this.userEmail() || '');
 
   setUser(session: UserBaseInfo) {
+    if (session.id !== undefined) {
+      localStorage.setItem('id', String(session.id));
+    }
     if (session.nombre !== undefined) {
       this.userName.set(session.nombre);
       localStorage.setItem('userName', session.nombre);
@@ -32,6 +35,7 @@ export class LoginState {
 
   setLoggedOut() {
     localStorage.removeItem('🦈');
+    localStorage.removeItem('id');
     localStorage.removeItem('userName');
     localStorage.removeItem('userLastName');
     localStorage.removeItem('userEmail');
