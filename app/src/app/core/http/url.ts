@@ -1,1 +1,1 @@
-export const BASEURL = 'http://localhost:3000';
+export const BASEURL = 'https://unemployed-fredi-hamkov-76c3ff1b.koyeb.app';
